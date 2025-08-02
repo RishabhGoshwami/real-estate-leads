@@ -6,7 +6,7 @@ import Highlights from "../components/Highlights";
 import ProjectsTabs from "../components/ProjectsTabs";
 import VideoSection from "../components/VideoSection";
 import ChairmanMessage from "../components/ChairmanMessage";
-import VideoGallery from "../components/VideoGallery";
+
 import LatestBlogNews from "../components/LatestBlogNews";
 import Testimonials from "../components/Testimonials";
 import PopupForm from "../components/ContactForm";
@@ -35,9 +35,7 @@ const Home = () => {
       {/* Chairman's Message */}
       <ChairmanMessage />
 
-      {/* Video Gallery */}
-      <VideoGallery />
-
+     
       {/* Latest Blog & News */}
       <LatestBlogNews />
   

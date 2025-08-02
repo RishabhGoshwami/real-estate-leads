@@ -26,7 +26,7 @@ const ContactForm = () => {
           <h2 className="text-3xl font-bold text-blue-800 mb-4">CONTACT US</h2>
           <p className="text-gray-600 mb-6">Schedule a visit</p>
           <p className="text-lg mb-2"><strong>Phone:</strong> <a href="tel:+918352086520" className="text-blue-600">+91 9990989295</a></p>
-          <p className="text-lg mb-6"><strong>Email:</strong> <a href="mailto:sales@niralaworld.com" className="text-blue-600">sales@niralaworld.com</a></p>
+          <p className="text-lg mb-6"><strong>Email:</strong> <a href="mailto:sales@niralaworld.org" className="text-blue-600">sales@niralaworld.org</a></p>
         </div>
 
         {/* Contact Form */}
