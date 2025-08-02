@@ -28,7 +28,7 @@ const Footer = () => {
           <ul className="text-sm space-y-1">
             <li>📍 Noida Extension, UP</li>
             <li>📞 +91 9990989295</li>
-            <li>📧 info@niralaworld.com</li>
+            <li>📧 info@niralaworld.org</li>
           </ul>
         </div>
 
