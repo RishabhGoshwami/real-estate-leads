@@ -55,8 +55,9 @@ Number: ${number}`;
               <img
                 src={src}
                 alt={`Premium Property Banner ${index + 1} - Nirala World`}
-                loading="lazy"
+                // loading="lazy"
                 className="w-full h-full object-cover brightness-75"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-black/50"></div>
             </div>
