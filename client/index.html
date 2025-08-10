@@ -1,58 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <!-- Critical CSS Inline -->
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background: #fff;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+      }
+      .hero {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
 
-  <!-- Title & Favicon -->
-  <title>Commercial Property in Greater Noida – Nirala World</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Primary Meta Tags -->
-  <meta name="title" content="Commercial Property in Greater Noida – Nirala World" />
-  <meta name="description" content="Buy premium commercial spaces in Greater Noida with Nirala World. Modern retail shops & offices in prime locations. Book your space now!" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.niralaworld.org/" />
+    <!-- Title & Favicon -->
+    <title>Commercial Property in Greater Noida – Nirala World</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.niralaworld.org/" />
-  <meta property="og:title" content="Commercial Property in Greater Noida – Nirala World" />
-  <meta property="og:description" content="Premium commercial & residential properties in Greater Noida. Modern retail & office spaces available now!" />
-  <meta property="og:image" content="https://www.niralaworld.org/preview.jpg" />
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Commercial Property in Greater Noida – Nirala World" />
+    <meta name="description" content="Buy premium commercial spaces in Greater Noida with Nirala World. Modern retail shops & offices in prime locations. Book your space now!" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.niralaworld.org/" />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://www.niralaworld.org/" />
-  <meta name="twitter:title" content="Commercial Property in Greater Noida – Nirala World" />
-  <meta name="twitter:description" content="Explore premium real estate in Greater Noida with Nirala World." />
-  <meta name="twitter:image" content="https://www.niralaworld.org/preview.jpg" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.niralaworld.org/" />
+    <meta property="og:title" content="Commercial Property in Greater Noida – Nirala World" />
+    <meta property="og:description" content="Premium commercial & residential properties in Greater Noida. Modern retail & office spaces available now!" />
+    <meta property="og:image" content="https://www.niralaworld.org/preview.jpg" />
 
-  <!-- Theme Color -->
-  <meta name="theme-color" content="#ffffff" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.niralaworld.org/" />
+    <meta name="twitter:title" content="Commercial Property in Greater Noida – Nirala World" />
+    <meta name="twitter:description" content="Explore premium real estate in Greater Noida with Nirala World." />
+    <meta name="twitter:image" content="https://www.niralaworld.org/preview.jpg" />
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    "name": "Nirala World",
-    "url": "https://www.niralaworld.org/",
-    "logo": "https://www.niralaworld.org/logo.png",
-    "image": "https://www.niralaworld.org/preview.jpg",
-    "description": "Premium commercial and residential property in Greater Noida.",
-    "areaServed": "Greater Noida, India",
-    "sameAs": [
-      "https://facebook.com/niralaworld",
-      "https://instagram.com/niralaworld"
-    ]
-  }
-  </script>
-</head>
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Preload Hero Image (LCP) -->
+    <link rel="preload" as="image" href="/property2.webp" />
+
+    <!-- Preload Fonts (if used) -->
+    <!-- <link rel="preload" href="/fonts/your-font.woff2" as="font" type="font/woff2" crossorigin> -->
+
+    <!-- Load Main CSS Non-blocking -->
+    <link rel="preload" href="/src/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/src/index.css"></noscript>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Nirala World",
+        "url": "https://www.niralaworld.org/",
+        "logo": "https://www.niralaworld.org/logo.png",
+        "image": "https://www.niralaworld.org/preview.jpg",
+        "description": "Premium commercial and residential property in Greater Noida.",
+        "areaServed": "Greater Noida, India",
+        "sameAs": [
+          "https://facebook.com/niralaworld",
+          "https://instagram.com/niralaworld"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- JS defer for non-blocking -->
+    <script type="module" src="/src/main.jsx" defer></script>
+  </body>
 </html>

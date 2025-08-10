@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import property6 from "../assets/property6.jpg?w=1920&format=webp";
 
 const AboutUs = () => {
   return (
@@ -14,35 +15,48 @@ const AboutUs = () => {
         <p className="text-gray-700 mb-6 leading-relaxed">
           Quality construction, timely delivery, adherence to commitments, and customer satisfaction are the USPs of Nirala World. Strategically located in prime NCR areas, all projects boast state-of-the-art infrastructure with luxury amenities and green surroundings.
         </p>
-        
-        {/* Optional Image Section */}
+
+        {/* Optimized Image */}
         <div className="my-8">
           <img
-            src="property6.jpg"
-            alt="Nirala World projects"
+            src={property6}
+            alt="Luxurious Nirala World real estate project in NCR"
             className="w-full rounded-lg shadow-lg"
+            loading="lazy"
+            width="1920"
+            height="1080"
           />
         </div>
 
-        <h2 className="text-2xl font-semibold text-blue-800 mb-4">Our Vision & Mission</h2>
+        <h2 className="text-2xl font-semibold text-blue-800 mb-4">
+          Our Vision & Mission
+        </h2>
         <p className="text-gray-700 leading-relaxed mb-6">
-          Nirala World aims to pioneer affordable luxury real estate projects that cater to the aspirations of modern India — combining innovation, quality, and transparency with customer-centric values.
+          Nirala World aims to pioneer affordable luxury real estate projects
+          that cater to the aspirations of modern India — combining innovation,
+          quality, and transparency with customer-centric values.
         </p>
 
-        <h2 className="text-2xl font-semibold text-blue-800 mb-4">Why Choose Us?</h2>
+        <h2 className="text-2xl font-semibold text-blue-800 mb-4">
+          Why Choose Us?
+        </h2>
         <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2">
           <li>Over 25 years of consistent excellence and trust.</li>
           <li>Quality construction with timely delivery.</li>
           <li>Green-certified developments and modern amenities.</li>
-          <li>Strong presence across Noida & Noida Extension in the NCR.</li>
+          <li>
+            Strong presence across Noida & Noida Extension in the NCR.
+          </li>
         </ul>
 
         <h2 className="text-2xl font-semibold text-blue-800 mb-4">Contact Us</h2>
         <p className="text-gray-700">For more details, reach us at:</p>
         <ul className="text-gray-700 space-y-1">
-          <li>Office Address: Logix Infotech Park, Sector‑59, Noida, U.P., 201301</li>
-          <li>Phone: +91 120 4823000</li>
-          <li>Email: sales@niralaworld.com</li>
+          <li>
+            Office Address: Logix Infotech Park, Sector-65, Noida, U.P., 201301
+          </li>
+          <li>Phone: +919990980295</li>
+          <li>Email: sales@niralaworld.org</li>
         </ul>
       </div>
     </div>

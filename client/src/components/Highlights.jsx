@@ -1,4 +1,5 @@
 import React from "react";
+import property2 from "../assets/property2.jpg?w=1920&format=webp"; // Optimized import
 
 const Highlights = () => {
   return (
@@ -29,9 +30,12 @@ const Highlights = () => {
         {/* Image Section */}
         <div>
           <img
-            src="/property2.jpg"
-            alt="Location Map"
+            src={property2}
+            alt="Map showing location of C-07, Sector 12, Greater Noida West"
             className="w-full h-auto rounded shadow-lg"
+            loading="lazy"
+            width="1920"
+            height="1080"
           />
         </div>
       </div>
