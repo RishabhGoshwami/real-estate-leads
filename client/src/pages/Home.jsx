@@ -6,25 +6,24 @@ import Highlights from "../components/Highlights";
 import ProjectsTabs from "../components/ProjectsTabs";
 import VideoSection from "../components/VideoSection";
 import ChairmanMessage from "../components/ChairmanMessage";
-
 import LatestBlogNews from "../components/LatestBlogNews";
 import Testimonials from "../components/Testimonials";
-import PopupForm from "../components/ContactForm";
-
+import AutoPopupForm from "../components/AutoPopupForm";  // ✅ use updated name
 import Footer from "../components/Footer";
 import FloatingButtons from "../components/FloatingButtons";
 
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
-       
+      
+      {/* ✅ Auto popup will show when page loads */}
+      <AutoPopupForm />
+
       {/* Hero Section */}
       <HeroBanner />
       
-
       {/* Highlights Section */}
       <Highlights />
-      <PopupForm />
 
       {/* Projects Tabs */}
       <ProjectsTabs />
@@ -35,15 +34,11 @@ const Home = () => {
       {/* Chairman's Message */}
       <ChairmanMessage />
 
-     
       {/* Latest Blog & News */}
       <LatestBlogNews />
   
-
       {/* Testimonials Section */}
       <Testimonials />
-
-     
 
       {/* Footer */}
       <Footer />

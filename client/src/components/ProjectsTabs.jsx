@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+// ✅ Import optimized images
+import property1 from '../assets/property1.jpg?w=800&format=webp'
+import property3 from '../assets/property3.jpg?w=800&format=webp'
+import property6 from '../assets/property6.jpg?w=800&format=webp'
+import property2 from '../assets/property2.jpg?w=800&format=webp'
+
 // Project data
 const projects = {
   ongoing: [
@@ -8,14 +14,14 @@ const projects = {
       slug: 'nirala-estate-phase-2',
       title: 'Nirala Estate Phase 2',
       location: 'Greater Noida West',
-      image: '/property1.jpg',
+      image: property1,
       status: 'Ongoing',
     },
     {
       slug: 'nirala-aspire',
       title: 'Nirala Aspire',
       location: 'Noida Extension',
-      image: '/property3.jpg',
+      image: property3,
       status: 'New Launch',
     },
   ],
@@ -24,7 +30,7 @@ const projects = {
       slug: 'nirala-greenshire',
       title: 'Nirala Greenshire',
       location: 'Noida Sector 2',
-      image: '/property6.jpg',
+      image: property6,
       status: 'Completed',
     },
   ],
@@ -33,19 +39,18 @@ const projects = {
       slug: 'nirala-gateway',
       title: 'Nirala Gateway',
       location: 'Greater Noida (Coming Soon)',
-      image: '/property2.jpg', // ✅ Updated image
+      image: property2, // ✅ Updated image
       status: 'New Launch',
     },
   ],
 }
 
 // Tabs
-// Tabs (reordered to put New Launch first)
 const tabs = [
-  { key: 'newLaunch', label: 'New Launch' }, // ✅ Moved to first
+  { key: 'newLaunch', label: 'New Launch' },
   { key: 'ongoing', label: 'Ongoing' },
   { key: 'completed', label: 'Completed' },
-];
+]
 
 const ProjectsTabs = () => {
   const [activeTab, setActiveTab] = useState('newLaunch')
@@ -81,6 +86,7 @@ const ProjectsTabs = () => {
                 src={project.image}
                 alt={project.title}
                 className="w-full h-52 object-cover rounded-t-lg"
+                loading="lazy" // ✅ Lazy loading for SEO
               />
               <div className="px-4 pt-3">
                 <p className="text-xs inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full mb-2">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react'; // Install lucide-react or replace with SVG if not using
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,7 +8,15 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        <h1 className="text-xl font-bold">NIRALA WORLD</h1>
+        
+        {/* Logo */}
+        <Link to="/" className="flex items-center space-x-2">
+          <img
+            src="/logo1.png"
+            alt="Nirala World Logo"
+            className="h-10 w-auto"
+          />
+        </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6">
