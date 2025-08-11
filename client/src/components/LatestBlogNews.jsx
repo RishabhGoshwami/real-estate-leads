@@ -1,10 +1,12 @@
 import React from "react";
-
+import property1 from '../assets/property1.jpg?w=800&format=webp'
+import property3 from '../assets/property3.jpg?w=800&format=webp'
+import property6 from '../assets/property6.jpg?w=800&format=webp'
 const blogs = [
   {
     title: "Nirala Estate Phase 2 – Possession Started",
     date: "July 24, 2025",
-    image: "/blog1.jpg", // Place image in /public
+   image: property1, // Place image in /public
     excerpt:
       "Nirala Estate Phase 2 has begun handing over homes to happy families. Get the full update.",
     link: "#",
@@ -12,7 +14,7 @@ const blogs = [
   {
     title: "Top Real Estate Projects in Greater Noida West",
     date: "June 18, 2025",
-    image: "/blog2.jpg",
+   image: property3,
     excerpt:
       "Looking for the best housing in Noida Extension? Explore our most successful ongoing and upcoming projects.",
     link: "#",
@@ -20,7 +22,7 @@ const blogs = [
   {
     title: "Nirala World – 25 Years of Excellence",
     date: "May 12, 2025",
-    image: "/blog3.jpg",
+   image: property6,
     excerpt:
       "Celebrating 25 years of trust and innovation in the real estate sector.",
     link: "#",
