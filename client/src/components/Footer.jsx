@@ -35,10 +35,10 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold mb-2">Follow Us</h4>
           <div className="flex space-x-3 text-xl">
-            <a href="#" className="hover:text-blue-400"><FaFacebook /></a>
-            <a href="#" className="hover:text-pink-500"><FaInstagram /></a>
-            <a href="#" className="hover:text-sky-400"><FaTwitter /></a>
-            <a href="#" className="hover:text-red-500"><FaYoutube /></a>
+            <a href="https://www.facebook.com/niralaworldpvtltd/" className="hover:text-blue-400"><FaFacebook /></a>
+            <a href="https://www.instagram.com/nirala_world/" className="hover:text-pink-500"><FaInstagram /></a>
+            <a href="https://www.instagram.com/nirala_world/" className="hover:text-sky-400"><FaTwitter /></a>
+            <a href="https://www.youtube.com/@niralaworld9165" className="hover:text-red-500"><FaYoutube /></a>
           </div>
         </div>
       </div>
