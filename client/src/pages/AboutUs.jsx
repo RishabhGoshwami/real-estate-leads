@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="pt-24 bg-gray-50 min-h-screen">
       <div className="max-w-5xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-blue-800 mb-6">About Us</h1>
+        <h2 className="text-4xl font-bold text-blue-800 mb-6">About Us</h2>
         <p className="text-gray-700 mb-6 leading-relaxed">
           Since inception in 1996, Nirala World has created new benchmarks in the domain of real estate and has earned a leading name in the constellation of elite developers. Led by a dynamic team of experienced professionals, the company aims to fulfill the aspirations of modern India for modern spaces.
         </p>

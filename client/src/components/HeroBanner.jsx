@@ -69,9 +69,9 @@ Number: ${number}`;
       <div className="absolute inset-0 z-20 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-10">
         {/* Left Info */}
         <div className="max-w-lg text-white space-y-3 bg-black/50 p-6 rounded-lg">
-          <h1 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-3xl md:text-4xl font-bold">
             Nirala World Gateway
-          </h1>
+          </h2>
           <p className="text-lg">At Sector 12 Noida Extension</p>
           <ul className="list-disc list-inside space-y-1 text-sm">
             <li>Directly Accessible from 130 Mtr. Road</li>

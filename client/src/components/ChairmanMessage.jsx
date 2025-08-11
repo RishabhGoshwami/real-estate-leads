@@ -13,7 +13,7 @@ const ChairmanMessage = () => {
         <p className="text-md italic mb-4">- Mr. XYZ, Chairman, Nirala World</p>
 
         <div className="flex justify-center mt-8">
-          <h1 className="text-xl font-bold">NIRALA WORLD</h1>
+          <h2 className="text-xl font-bold">NIRALA WORLD</h2>
         </div>
       </div>
     </section>
