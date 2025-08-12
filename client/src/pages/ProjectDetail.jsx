@@ -1,5 +1,7 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+// Using the same image as the About Us page for demonstration
+import property6 from "../assets/property6.jpg?w=1920&format=webp";
 
 const allProjects = {
   'nirala-gateway': {
@@ -49,6 +51,10 @@ Strategically located on a prominent three-side open plot, the building will ser
       },
     ],
     floorplan: "/floorplan.pdf",
+    images: [
+      { src: property6, alt: "Exterior view of Nirala Gateway" },
+      // Add more images here if available
+    ],
   },
 };
 
@@ -57,55 +63,104 @@ const ProjectDetail = () => {
   const project = allProjects[slug];
 
   if (!project) {
-    return <div className="p-10 text-red-600">Project not found</div>;
+    return <div className="p-10 text-red-600 text-center">Project not found</div>;
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold text-blue-900 mb-2">{project.title}</h1>
-      <p className="text-lg text-gray-600 mb-4">{project.location}</p>
+    <div className="bg-white min-h-screen">
+      <div className="max-w-6xl mx-auto px-4 py-10" aria-labelledby="project-title-heading">
+        {/* Main page heading for SEO */}
+        <h1 id="project-title-heading" className="text-4xl font-bold text-blue-900 mb-2">{project.title}</h1>
+        <p className="text-lg text-gray-600 mb-4">{project.location}</p>
 
-      {/* Video */}
-      {project.video && (
-        <div className="mb-6 rounded-lg overflow-hidden shadow-lg">
-          <video
-            src={project.video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-[600px] object-cover"
-          />
-        </div>
-      )}
+        {/* Video Section with accessibility attributes */}
+        {project.video && (
+          <div className="mb-6 rounded-lg overflow-hidden shadow-lg" role="region" aria-label={`Promotional video for ${project.title}`}>
+            <h2 className="sr-only">Promotional Video</h2> {/* Screen-reader-only heading */}
+            <video
+              src={project.video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-[600px] object-cover"
+              aria-label={`Promotional video showcasing the ${project.title} project.`}
+            />
+          </div>
+        )}
 
-      {/* Description */}
-      <p className="text-lg text-gray-800 mb-6">{project.description}</p>
-
-      {/* Overview */}
-      {project.overview && (
-        <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-blue-800 mb-3">Project Overview</h2>
-          <p className="text-gray-700 whitespace-pre-line">{project.overview}</p>
-        </div>
-      )}
-
-      {/* Components */}
-      {project.components && (
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-2xl font-semibold text-blue-800 mb-5">Project Components</h2>
-          {project.components.map((comp, index) => (
-            <div key={index} className="mb-6 border-b pb-4 border-gray-200">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">{comp.title}</h3>
-              <p><span className="font-semibold">Purpose:</span> {comp.purpose}</p>
-              <p><span className="font-semibold">Design:</span> {comp.design}</p>
-              <p><span className="font-semibold">Special Features:</span> {comp.features}</p>
+        {/* Section for Images */}
+        {project.images && project.images.length > 0 && (
+          <div className="my-8" role="region" aria-label={`Photo gallery for ${project.title}`}>
+            <h2 className="text-2xl font-semibold text-blue-800 mb-5">Photo Gallery</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {project.images.map((image, index) => (
+                <div key={index} className="rounded-lg overflow-hidden shadow-md">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-52 object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        )}
 
-      
+        {/* Description */}
+        <p className="text-lg text-gray-800 mb-6">{project.description}</p>
+
+        {/* Overview section */}
+        {project.overview && (
+          <div className="bg-gray-50 p-6 rounded-lg shadow-md mb-8">
+            <h2 className="text-2xl font-semibold text-blue-800 mb-3">Project Overview</h2>
+            <p className="text-gray-700 whitespace-pre-line">{project.overview}</p>
+          </div>
+        )}
+
+        {/* Components section with accessibility improvements */}
+        {project.components && (
+          <div className="bg-white p-6 rounded-lg shadow-md mb-8" role="region" aria-label="Project components and features">
+            <h2 className="text-2xl font-semibold text-blue-800 mb-5">Project Components</h2>
+            {project.components.map((comp, index) => (
+              <div key={index} className="mb-6 border-b pb-4 border-gray-200">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{comp.title}</h3>
+                <p className="text-gray-700"><span className="font-semibold">Purpose:</span> {comp.purpose}</p>
+                <p className="text-gray-700"><span className="font-semibold">Design:</span> {comp.design}</p>
+                <p className="text-gray-700"><span className="font-semibold">Special Features:</span> {comp.features}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Floorplan section with an accessible link */}
+        {project.floorplan && (
+          <div className="mb-6 p-6 bg-gray-50 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold text-blue-800 mb-3">Download Floorplan</h2>
+            <a
+              href={project.floorplan}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+              aria-label={`Download the floorplan for ${project.title} as a PDF`}
+            >
+              Download PDF
+            </a>
+          </div>
+        )}
+
+        {/* Simple Call to Action section */}
+        <div className="text-center py-8">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Want to know more?</h2>
+            <Link 
+                to="/contact" 
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition"
+            >
+                Contact Us Today
+            </Link>
+        </div>
+      </div>
     </div>
   );
 };

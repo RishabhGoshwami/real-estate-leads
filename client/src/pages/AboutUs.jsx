@@ -3,9 +3,10 @@ import property6 from "../assets/property6.jpg?w=1920&format=webp";
 
 const AboutUs = () => {
   return (
-    <div className="pt-24 bg-gray-50 min-h-screen">
+    <section className="pt-24 bg-gray-50 min-h-screen" aria-labelledby="about-us-heading">
       <div className="max-w-5xl mx-auto px-4 py-12">
-        <h2 className="text-4xl font-bold text-blue-800 mb-6">About Us</h2>
+        {/* Main heading for the page with unique ID for accessibility */}
+        <h1 id="about-us-heading" className="text-4xl font-bold text-blue-800 mb-6">About Nirala World</h1>
         <p className="text-gray-700 mb-6 leading-relaxed">
           Since inception in 1996, Nirala World has created new benchmarks in the domain of real estate and has earned a leading name in the constellation of elite developers. Led by a dynamic team of experienced professionals, the company aims to fulfill the aspirations of modern India for modern spaces.
         </p>
@@ -16,11 +17,11 @@ const AboutUs = () => {
           Quality construction, timely delivery, adherence to commitments, and customer satisfaction are the USPs of Nirala World. Strategically located in prime NCR areas, all projects boast state-of-the-art infrastructure with luxury amenities and green surroundings.
         </p>
 
-        {/* Optimized Image */}
+        {/* Optimized Image with improved alt text */}
         <div className="my-8">
           <img
             src={property6}
-            alt="Luxurious Nirala World real estate project in NCR"
+            alt="A high-quality image of a completed Nirala World residential project, showcasing modern architecture and green spaces."
             className="w-full rounded-lg shadow-lg"
             loading="lazy"
             width="1920"
@@ -28,6 +29,7 @@ const AboutUs = () => {
           />
         </div>
 
+        {/* Secondary headings with better hierarchy */}
         <h2 className="text-2xl font-semibold text-blue-800 mb-4">
           Our Vision & Mission
         </h2>
@@ -49,17 +51,30 @@ const AboutUs = () => {
           </li>
         </ul>
 
+        {/* Using a semantic <address> tag for contact information */}
         <h2 className="text-2xl font-semibold text-blue-800 mb-4">Contact Us</h2>
-        <p className="text-gray-700">For more details, reach us at:</p>
-        <ul className="text-gray-700 space-y-1">
-          <li>
-            Office Address: Logix Infotech Park, Sector-65, Noida, U.P., 201301
-          </li>
-          <li>Phone: +919990980295</li>
-          <li>Email: sales@niralaworld.org</li>
-        </ul>
+        <address className="not-italic">
+          <p className="text-gray-700">For more details, reach us at:</p>
+          <ul className="text-gray-700 space-y-1">
+            <li>
+              Office Address: Logix Infotech Park, Sector-65, Noida, U.P., 201301
+            </li>
+            <li>
+              Phone:{" "}
+              <a href="tel:+919990980295" className="hover:underline text-blue-600">
+                +919990980295
+              </a>
+            </li>
+            <li>
+              Email:{" "}
+              <a href="mailto:sales@niralaworld.org" className="hover:underline text-blue-600">
+                sales@niralaworld.org
+              </a>
+            </li>
+          </ul>
+        </address>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -5,43 +5,45 @@ import HeroBanner from "../components/HeroBanner";
 import Highlights from "../components/Highlights";
 import ProjectsTabs from "../components/ProjectsTabs";
 import VideoSection from "../components/VideoSection";
-import ChairmanMessage from "../components/ChairmanMessage";
 import LatestBlogNews from "../components/LatestBlogNews";
 import Testimonials from "../components/Testimonials";
-import AutoPopupForm from "../components/AutoPopupForm";  // ✅ use updated name
-import Footer from "../components/Footer";
+import AutoPopupForm from "../components/AutoPopupForm";
 import FloatingButtons from "../components/FloatingButtons";
 
 const Home = () => {
   return (
     <div className="flex flex-col min-h-screen">
       
-      {/* ✅ Auto popup will show when page loads */}
+      {/* Auto popup will show when page loads */}
       <AutoPopupForm />
 
-      {/* Hero Section */}
-      <HeroBanner />
-      
-      {/* Highlights Section */}
-      <Highlights />
+      {/* Using a <main> tag for the page's primary content.
+        This is good for SEO and accessibility.
+      */}
+      <main>
+        {/* Hero Section */}
+        <HeroBanner />
+        
+        {/* Highlights Section */}
+        <Highlights />
 
-      {/* Projects Tabs */}
-      <ProjectsTabs />
+        {/* Projects Tabs */}
+        <ProjectsTabs />
 
-      {/* Video Promo Section */}
-      <VideoSection />
+        {/* Video Promo Section */}
+        <VideoSection />
 
-      {/* Chairman's Message */}
-      <ChairmanMessage />
+        {/* Latest Blog & News */}
+        <LatestBlogNews />
+    
+        {/* Testimonials Section */}
+        <Testimonials />
+      </main>
 
-      {/* Latest Blog & News */}
-      <LatestBlogNews />
-  
-      {/* Testimonials Section */}
-      <Testimonials />
-
-      {/* Footer */}
-      <Footer />
+      {/*
+        Removing the Footer from Home.js as it's already included
+        in App.js to appear on all pages.
+      */}
 
       {/* Floating WhatsApp & Call Buttons */}
       <FloatingButtons />
