@@ -1,148 +1,31 @@
-import React, { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
-// ✅ WebP optimized imports (Vite ImageTools)
-import property1 from "../assets/property1.jpg?w=1920&format=webp";
-import property6 from "../assets/property6.jpg?w=1920&format=webp";
-import property3 from "../assets/property3.jpg?w=1920&format=webp";
+import React, { useState, useEffect } from "react";
 
 const HeroBanner = () => {
-  const formRef = useRef();
-  const [loading, setLoading] = useState(false);
+  const images = [
+    "https://www.niralaestate2.co.in/images/gallery/gallery7.jpg",
+    "https://www.sikkagroups.in/blogs/wp-content/uploads/2023/11/1-2-1024x687.jpg",
+  ];
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+    }, 5000); // 5 seconds interval for the images to change
 
-    const formData = new FormData(formRef.current);
-    const name = formData.get("user_name");
-    const email = formData.get("user_email");
-    const number = formData.get("user_number");
-
-    // Phone number validation added for a better user experience
-    if (number.length !== 10) {
-      alert("Please enter a valid 10-digit phone number.");
-      setLoading(false);
-      return;
-    }
-
-    const message = `New Property Inquiry:
-Name: ${name}
-Email: ${email}
-Number: ${number}`;
-
-    const whatsappNumber = "919990989295";
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-      message
-    )}`;
-
-    window.open(whatsappURL, "_blank");
-    setLoading(false);
-    formRef.current.reset();
-  };
+    return () => clearInterval(timer);
+  }, [images.length]);
 
   return (
-    <section className="relative w-full h-[90vh]" aria-label="Nirala World Hero Banner with inquiry form">
-      {/* Background Slider */}
-      <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
-        loop={true}
-        pagination={false}
-        navigation={false}
-        className="absolute top-0 left-0 w-full h-full"
-        aria-roledescription="carousel"
-        aria-live="polite"
-      >
-        {[property1, property6, property3].map((src, index) => (
-          <SwiperSlide key={index} aria-label={`Slide ${index + 1} of 3`}>
-            <div className="w-full h-full relative">
-              <img
-                src={src}
-                alt={`Nirala World premium property in Greater Noida, slide ${index + 1}`}
-                className="w-full h-full object-cover brightness-75"
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-black/50"></div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-
-      {/* Overlay Content */}
-      <div className="absolute inset-0 z-20 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-10">
-        {/* Left Info */}
-        <div className="max-w-lg text-white space-y-3 bg-black/50 p-6 rounded-lg" role="contentinfo">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            Nirala World Gateway
-          </h1>
-          <p className="text-lg">At Sector 12 Noida Extension</p>
-          <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>Directly Accessible from 130 Mtr. Road</li>
-            <li>Proper 1 BHK Studio</li>
-            <li>Fully Furnished Studio</li>
-          </ul>
-          <p className="text-lg font-semibold">
-            Launch Price:{" "}
-            <span className="text-yellow-300">₹ 67.5 Lacs*</span>
-          </p>
-        </div>
-
-        {/* Right Form */}
-        <div className="bg-white text-black p-6 rounded-lg shadow-lg w-full max-w-md mt-6 md:mt-0" role="complementary">
-          <h2 className="text-xl font-bold mb-4">Send Us A Message</h2>
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4" aria-label="Inquiry Form">
-            <div>
-              <label htmlFor="userName" className="sr-only">Your Name</label>
-              <input
-                id="userName"
-                type="text"
-                name="user_name"
-                placeholder="Your Name"
-                required
-                aria-required="true"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="userEmail" className="sr-only">Your Email</label>
-              <input
-                id="userEmail"
-                type="email"
-                name="user_email"
-                placeholder="Your Email"
-                required
-                aria-required="true"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label htmlFor="userNumber" className="sr-only">Your Number</label>
-              <input
-                id="userNumber"
-                type="tel"
-                name="user_number"
-                placeholder="Your Number"
-                required
-                aria-required="true"
-                pattern="[0-9]{10}"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition"
-            >
-              {loading ? "Sending..." : "Send on WhatsApp"}
-            </button>
-          </form>
-        </div>
-      </div>
+    <section className="relative w-full h-[90vh] overflow-hidden" aria-label="Nirala World Hero Banner">
+      {images.map((src, index) => (
+        <img
+          key={index}
+          src={src}
+          alt={`Nirala World property, slide ${index + 1}`}
+          className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+          loading="eager"
+        />
+      ))}
     </section>
   );
 };

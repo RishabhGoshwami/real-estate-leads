@@ -1,34 +1,35 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import ProjectDetail from "./pages/ProjectDetail";
-import AboutUs from './pages/AboutUs'
-import ProjectsTabs from "./components/ProjectsTabs"; 
-import Contact from "./pages/Contact";
-import Footer from "./components/Footer";
+import React, { useState } from "react";
+import Navbar from "./components/Navbar";
+import HeroBanner from "./components/HeroBanner";
+import AboutSection from "./components/AboutSection";
+import LuxuryAmenities from "./components/LuxuryAmenities";
+import FloorPlanSection from "./components/FloorPlanSection";
+import PricePlanSection from "./components/PricePlanSection";
+import Footer from "./components/Footer"
+// import ContactSection from "./components/ContactSection";
+import PopupForm from "./components/PopupForm";
+import AutoPopupForm from "./components/AutoPopupForm";
+import FloatingButtons from "./components/FloatingButtons";
 
 function App() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   return (
-    <Router>
-      {/* Navbar will be visible on all pages */}
-      <Navbar />
-      <Routes>
-        {/* Route for the homepage */}
-        <Route path="/" element={<Home />} />
-        {/* Route for a specific project detail page */}
-        <Route path="/projects/:slug" element={<ProjectDetail />} />
-        {/* Route for the About Us page */}
-        <Route path="/about-us" element={<AboutUs />} />
-        {/* Route for the main projects listing page */}
-        <Route path="/projects" element={<ProjectsTabs />} />
-        {/* Route for the contact page */}
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      {/* Footer will be visible on all pages */}
-      <Footer />
-    </Router>
-  )
+    <>
+      <Navbar openForm={() => setIsFormOpen(true)} />
+      <HeroBanner />
+      <AutoPopupForm/>
+      <AboutSection />
+      <FloatingButtons/>
+      <LuxuryAmenities />
+       <PricePlanSection />
+      <FloorPlanSection openForm={() => setIsFormOpen(true)} />
+     
+      {/* <ContactSection /> */}
+      <PopupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+        <Footer/>
+    </>
+  );
 }
 
-export default App
+export default App;

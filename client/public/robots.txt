@@ -1,3 +1,6 @@
+# Allow all crawlers to access the site
 User-agent: *
-Allow: /
+Disallow:
+
+# Sitemap location
 Sitemap: https://www.niralaworld.org/sitemap.xml
