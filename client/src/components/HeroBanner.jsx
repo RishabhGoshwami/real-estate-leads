@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import property6 from "../assets/property6.jpg"; // apna correct path check kar lo
+import PopupForm from "./PopupForm"; // ✅ import popup form
 
-const HeroBanner = () => {
-  const images = [
-    "https://www.niralaestate2.co.in/images/gallery/gallery7.jpg",
-    "https://www.sikkagroups.in/blogs/wp-content/uploads/2023/11/1-2-1024x687.jpg",
-  ];
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
-    }, 5000); // 5 seconds interval for the images to change
-
-    return () => clearInterval(timer);
-  }, [images.length]);
-
+const HeroBanner = ({ isOpen, openPopup, closePopup }) => {
   return (
-    <section className="relative w-full h-[90vh] overflow-hidden" aria-label="Nirala World Hero Banner">
-      {images.map((src, index) => (
-        <img
-          key={index}
-          src={src}
-          alt={`Nirala World property, slide ${index + 1}`}
-          className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-          loading="eager"
-        />
-      ))}
+    <section
+      className="relative w-full h-[90vh] overflow-hidden"
+      aria-label="Nirala World Hero Banner"
+    >
+      {/* Background Image */}
+      <img
+        src={property6}
+        alt="Nirala World property"
+        className="absolute w-full h-full object-cover"
+        loading="eager"
+      />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30 bg-opacity-40"></div>
+
+      {/* Text + Button */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg mb-6">
+          Welcome to Your Dream Home
+        </h1>
+
+        {/* Request E-Brochure Button */}
+        <button
+          onClick={openPopup} // ✅ open popup state from parent
+          className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
+                     hover:scale-110 transform transition duration-300 
+                     text-black rounded-full shadow-lg animate-bounce"
+        >
+          📖 Request E-Brochure
+        </button>
+      </div>
+
+      {/* Popup Form Integration */}
+      <PopupForm isOpen={isOpen} onClose={closePopup} />
     </section>
   );
 };

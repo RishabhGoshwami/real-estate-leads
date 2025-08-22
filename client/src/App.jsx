@@ -5,7 +5,7 @@ import AboutSection from "./components/AboutSection";
 import LuxuryAmenities from "./components/LuxuryAmenities";
 import FloorPlanSection from "./components/FloorPlanSection";
 import PricePlanSection from "./components/PricePlanSection";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 // import ContactSection from "./components/ContactSection";
 import PopupForm from "./components/PopupForm";
 import AutoPopupForm from "./components/AutoPopupForm";
@@ -16,18 +16,31 @@ function App() {
 
   return (
     <>
+      {/* Navbar with open form */}
       <Navbar openForm={() => setIsFormOpen(true)} />
-      <HeroBanner />
-      <AutoPopupForm/>
+
+      {/* Hero Banner with brochure button */}
+      <HeroBanner
+        isOpen={isFormOpen}
+        openPopup={() => setIsFormOpen(true)}
+        closePopup={() => setIsFormOpen(false)}
+      />
+
+      {/* Auto popup form */}
+      <AutoPopupForm />
+
+      {/* Main sections */}
       <AboutSection />
-      <FloatingButtons/>
+      <FloatingButtons />
       <LuxuryAmenities />
-       <PricePlanSection />
+      <PricePlanSection />
       <FloorPlanSection openForm={() => setIsFormOpen(true)} />
-     
-      {/* <ContactSection /> */}
+
+      {/* Popup form */}
       <PopupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
-        <Footer/>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

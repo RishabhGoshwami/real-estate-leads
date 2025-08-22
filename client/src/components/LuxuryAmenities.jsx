@@ -1,76 +1,54 @@
 import React from "react";
 import {
-  FaStore,
-  FaHotTub,
-  FaSpa,
-  FaDumbbell,
-  FaChild,
-  FaSwimmer,
-  FaOm,
+  FaUtensils,
+  FaConciergeBell,
+  FaParking,
+  FaEye,
+  FaShieldAlt,
 } from "react-icons/fa";
-import { GiPartyPopper } from "react-icons/gi";
-import { MdSportsSoccer, MdCelebration, MdTheaterComedy } from "react-icons/md";
+import { MdOutlineStoreMallDirectory, MdSecurity } from "react-icons/md";
+import { GiEntryDoor, GiOfficeChair } from "react-icons/gi";
 
 const amenities = [
   {
-    name: "Premium Commercial Plaza",
-    icon: <FaStore className="text-green-600 text-4xl" />,
-    desc: "Modern retail & shopping spaces designed for convenience.",
+    name: "Fine Dining Restaurants",
+    icon: <FaUtensils className="text-green-600 text-4xl" />,
+    desc: "Savor world-class cuisines in premium dining settings.",
   },
   {
-    name: "Relaxing Jacuzzi",
-    icon: <FaHotTub className="text-green-600 text-4xl" />,
-    desc: "Luxury hydrotherapy experience for stress relief.",
+    name: "Double Height Lobby for Studio Apartments",
+    icon: <GiEntryDoor className="text-green-600 text-4xl" />,
+    desc: "Grand, spacious lobby area offering a luxurious welcome.",
   },
   {
-    name: "Rejuvenating Spa",
-    icon: <FaSpa className="text-green-600 text-4xl" />,
-    desc: "Wellness treatments for complete mind-body relaxation.",
+    name: "Dedicated Restaurant for Studio Apartments",
+    icon: <FaConciergeBell className="text-green-600 text-4xl" />,
+    desc: "Exclusive dining space catering to studio residents.",
   },
   {
-    name: "Fully-Equipped Gym",
-    icon: <FaDumbbell className="text-green-600 text-4xl" />,
-    desc: "State-of-the-art fitness centre for an active lifestyle.",
+    name: "Anchor Stores",
+    icon: <MdOutlineStoreMallDirectory className="text-green-600 text-4xl" />,
+    desc: "Large anchor stores to attract premium footfall.",
   },
   {
-    name: "Kids Play Arena",
-    icon: <FaChild className="text-green-600 text-4xl" />,
-    desc: "Safe & fun play zone for children of all ages.",
+    name: "Reception and Security",
+    icon: <MdSecurity className="text-green-600 text-4xl" />,
+    desc: "24x7 security with reception services for assistance.",
   },
   {
-    name: "Yoga & Meditation Pavilion",
-    icon: <FaOm className="text-green-600 text-4xl" />,
-    desc: "Peaceful space for inner calm and spiritual balance.",
+    name: "Ample Parking Space",
+    icon: <FaParking className="text-green-600 text-4xl" />,
+    desc: "Sufficient vehicle parking for residents and visitors.",
   },
   {
-    name: "Badminton Court",
-    icon: <MdSportsSoccer className="text-green-600 text-4xl" />,
-    desc: "Professional-grade court for sports enthusiasts.",
+    name: "High Visibility of Shops",
+    icon: <FaEye className="text-green-600 text-4xl" />,
+    desc: "Maximum exposure for retail units to enhance visibility.",
   },
   {
-    name: "Elegant Banquet Hall",
-    icon: <MdCelebration className="text-green-600 text-4xl" />,
-    desc: "Spacious hall for celebrations & gatherings.",
-  },
-  {
-    name: "Party Lawn",
-    icon: <GiPartyPopper className="text-green-600 text-4xl" />,
-    desc: "Open green space for outdoor parties & events.",
-  },
-  {
-    name: "Infinity Swimming Pool",
-    icon: <FaSwimmer className="text-green-600 text-4xl" />,
-    desc: "Crystal-clear pool for leisure & exercise.",
-  },
-  {
-    name: "Dedicated Kids Pool",
-    icon: <FaSwimmer className="text-green-600 text-4xl" />,
-    desc: "Safe shallow pool designed for young swimmers.",
-  },
-  {
-    name: "Open-Air Theatre",
-    icon: <MdTheaterComedy className="text-green-600 text-4xl" />,
-    desc: "Enjoy movies & cultural events under the stars.",
+    name: "Professional Maintenance",
+    icon: <GiOfficeChair className="text-green-600 text-4xl" />,
+    desc: "Well-managed upkeep by trained maintenance staff.",
   },
 ];
 
@@ -85,8 +63,8 @@ const LuxuryAmenities = () => {
           Luxury <span className="text-green-600">Amenities</span>
         </h2>
         <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-          Experience world-class facilities designed to enhance your lifestyle,
-          offering comfort, recreation, and wellness all within your community.
+          Experience premium facilities curated to elevate your lifestyle,
+          blending luxury, security, and convenience within one space.
         </p>
       </div>
 

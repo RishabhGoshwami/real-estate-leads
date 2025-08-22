@@ -1,64 +1,95 @@
-import React, { useState } from "react";
-import PopupForm from "./PopupForm";
+import React from "react";
+import { FaStore, FaUtensils, FaBuilding, FaBed } from "react-icons/fa";
 
-const floorPlans = [
+const projectComponents = [
   {
-    title: "3 BHK Premium Apartment",
-    area: "1897 Sq. Ft.",
-    image: "https://niralaproject.in/nirala-estate-phase-4/images/floor/3bhk-1897-sq.ft.jpg",
+    title: "Retail Shops & Anchor Stores",
+    floors: "Lower Ground to 2nd Floor",
+    purpose:
+      "To host a wide range of retail outlets and anchor stores, catering to both everyday shopping and premium brands.",
+    design:
+      "Spacious, open-floor layouts for tenant flexibility. High visibility and direct access from adjoining roads to boost foot traffic.",
+    features:
+      "Large-scale anchor stores on the Lower Ground floor to serve as crowd pullers and establish a strong retail destination.",
+    icon: <FaStore className="text-green-600 text-4xl" />,
   },
   {
-    title: "3 BHK Contemporary Layout",
-    area: "1535 Sq. Ft.",
-    image: "https://www.niralagroup.co.in/nirala-estate-ph4/gallery/1535_3bhk_G.jpeg",
+    title: "Restaurants",
+    floors: "3rd Floor",
+    purpose:
+      "To offer fine dining options for a tranquil dining experience.",
+    design:
+      "Open, airy spaces with large windows to maximize natural light and offer scenic views. Green terraces provide an organic connection to nature.",
+    features:
+      "Landscaped outdoor seating areas for comfortable dining surrounded by greenery and urban vistas.",
+    icon: <FaUtensils className="text-green-600 text-4xl" />,
   },
   {
-    title: "3 BHK Compact & Cozy",
-    area: "1250 Sq. Ft.",
-    image: "https://www.niralagroup.co.in/nirala-estate-ph5/gallery/1250_3bhk_C.jpeg",
+    title: "Offices",
+    floors: "5th to 8th Floors",
+    purpose:
+      "To provide modern workspaces for professionals, startups, and established businesses.",
+    design:
+      "Contemporary office layouts with high-speed elevators, energy-efficient HVAC systems, and flexible unit configurations.",
+    features: "Approx. 132 office units to accommodate varied business needs.",
+    icon: <FaBuilding className="text-green-600 text-4xl" />,
+  },
+  {
+    title: "Studio Apartments",
+    floors: "9th to 24th Floors",
+    purpose:
+      "To deliver modern urban living for professionals, small families, and city dwellers.",
+    design:
+      "Smartly designed studios focusing on space optimization, natural lighting, and modern aesthetics.",
+    features:
+      "Private Gym exclusively for residents & an In-house Restaurant for added convenience.",
+    icon: <FaBed className="text-green-600 text-4xl" />,
   },
 ];
 
 const FloorPlanSection = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-
   return (
     <section
       id="floor-plan"
-      className="py-16 px-6 md:px-12 bg-white scroll-mt-20"
+      className="py-16 px-6 md:px-12 bg-gray-50 scroll-mt-20"
     >
       <div className="max-w-7xl mx-auto text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-          Explore <span className="text-green-600">Floor Plans</span>
+          Project <span className="text-green-600">Components</span>
         </h2>
-        <p className="text-gray-600 mt-3 max-w-2xl mx-auto">
-          Click on any floor plan to request the <strong>brochure</strong> and <strong>floor plan details</strong> directly on WhatsApp.
+        <p className="text-gray-600 mt-3 max-w-3xl mx-auto text-lg">
+          Discover thoughtfully planned spaces blending retail, dining, work,
+          and modern urban living — all within one integrated development.
         </p>
       </div>
 
-      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {floorPlans.map((plan, idx) => (
+      <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+        {projectComponents.map((component, idx) => (
           <div
             key={idx}
-            className="bg-gray-50 rounded-2xl shadow-lg overflow-hidden cursor-pointer group"
-            onClick={() => setIsFormOpen(true)}
+            className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition flex flex-col"
           >
-            <img
-              src={plan.image}
-              alt={`${plan.title} - ${plan.area} - Nirala Estate`}
-              className="w-full h-64 object-cover group-hover:blur-sm transition duration-300"
-              loading="lazy"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-gray-800">{plan.title}</h3>
-              <p className="text-gray-600 mt-2">{plan.area}</p>
+            <div className="flex items-center gap-4 mb-4">
+              {component.icon}
+              <h3 className="text-xl font-semibold text-gray-800">
+                {component.title}
+              </h3>
             </div>
+            <p className="text-sm text-gray-500 mb-2">
+              <strong>Floors:</strong> {component.floors}
+            </p>
+            <p className="text-gray-700 mb-3">
+              <strong>Purpose:</strong> {component.purpose}
+            </p>
+            <p className="text-gray-700 mb-3">
+              <strong>Design:</strong> {component.design}
+            </p>
+            <p className="text-gray-700">
+              <strong>Special Features:</strong> {component.features}
+            </p>
           </div>
         ))}
       </div>
-
-      {/* Form Popup */}
-      <PopupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </section>
   );
 };
