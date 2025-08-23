@@ -10,7 +10,10 @@ import Footer from "./components/Footer";
 import PopupForm from "./components/PopupForm";
 import AutoPopupForm from "./components/AutoPopupForm";
 import FloatingButtons from "./components/FloatingButtons";
-
+import Amenities from "./components/amenities";
+import Gateway from "./components/Gateway";
+import LocationDetails from "./components/LocationDetails";
+import SustainabilitySection from "./components/SustainabilitySection"
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -32,9 +35,14 @@ function App() {
       {/* Main sections */}
       <AboutSection />
       <FloatingButtons />
-      <LuxuryAmenities />
+     <FloorPlanSection openForm={() => setIsFormOpen(true)} />
+      <Amenities/>
+      
+       <LuxuryAmenities />
+       <Gateway/>
+       <LocationDetails/>
+       <SustainabilitySection/>
       <PricePlanSection />
-      <FloorPlanSection openForm={() => setIsFormOpen(true)} />
 
       {/* Popup form */}
       <PopupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />

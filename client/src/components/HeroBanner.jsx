@@ -1,5 +1,5 @@
 import React from "react";
-import property6 from "../assets/property6.jpg"; // apna correct path check kar lo
+import property6 from "../assets/background_01.jpg"; // apna correct path check kar lo
 import PopupForm from "./PopupForm"; // ✅ import popup form
 
 const HeroBanner = ({ isOpen, openPopup, closePopup }) => {
