@@ -8,7 +8,7 @@ const navLinks = [
   { name: "Home", id: "home" },
   { name: "Who We Are", id: "about" },
   { name: "Amenities", id: "amenities" },
-  { name: "Pricing Plans", id: "price-plan" },
+  { name: "Pricing Plans", id: "download" },
   { name: "Layout & Floors", id: "floor-plan" },
   { name: "Brochure Download", id: "brochure" },
 ];

@@ -4,7 +4,7 @@ import HeroBanner from "./components/HeroBanner";
 import AboutSection from "./components/AboutSection";
 import LuxuryAmenities from "./components/LuxuryAmenities";
 import FloorPlanSection from "./components/FloorPlanSection";
-import PricePlanSection from "./components/PricePlanSection";
+import PricePlanSection from "./components/DownloadSection";
 import Footer from "./components/Footer";
 // import ContactSection from "./components/ContactSection";
 import PopupForm from "./components/PopupForm";
@@ -14,6 +14,8 @@ import Amenities from "./components/amenities";
 import Gateway from "./components/Gateway";
 import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection"
+import Sector12 from "./components/Sector12";
+import GallerySection from "./components/GallerySection";
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -42,7 +44,9 @@ function App() {
        <Gateway/>
        <LocationDetails/>
        <SustainabilitySection/>
+       <Sector12/>
       <PricePlanSection />
+      <GallerySection/>
 
       {/* Popup form */}
       <PopupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
