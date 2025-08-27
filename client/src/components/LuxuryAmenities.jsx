@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import { MdOutlineStoreMallDirectory, MdSecurity } from "react-icons/md";
 import { GiEntryDoor, GiOfficeChair } from "react-icons/gi";
-import bg03 from "../assets/background_03.jpg"; // ✅ background image import
+ // ✅ background image import
 
 const amenities = [
   {
@@ -57,7 +57,7 @@ const LuxuryAmenities = () => {
     <section
       id="amenities"
       className="relative py-16 px-6 md:px-12 bg-cover bg-center scroll-mt-20"
-      style={{ backgroundImage: `url(${bg03})` }}
+      
     >
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-black/40"></div>

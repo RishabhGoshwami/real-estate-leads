@@ -1,78 +1,78 @@
 import React from "react";
-import bg06 from "../assets/background_06.jpg";
-import bg07 from "../assets/background_07.jpg";
+
 import innerProjectsBg02 from "../assets/inner_projects_background_02.jpg";
 import innerSlider01 from "../assets/inner_slider_01.jpg";
 
 const Amenities = () => {
   return (
     <>
-      {/* Section 1 */}
+      {/* Section 1 - Workspaces */}
       <section
         className="relative py-20 px-6 md:px-12 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bg06})` }}
+        style={{ backgroundImage: `url(${innerProjectsBg02})` }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
+
+        <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           {/* Left Side - Image */}
           <div className="flex justify-center">
             <img
               src={innerProjectsBg02}
               alt="Premium Workspaces"
-              className="rounded-2xl shadow-lg max-w-full h-auto"
+              className="rounded-2xl shadow-xl max-w-full h-auto transform hover:scale-105 transition duration-500 ease-in-out"
               loading="lazy"
             />
           </div>
 
           {/* Right Side - Text */}
-          <div className="text-white">
-            <h3 className="text-green-400 text-sm font-semibold uppercase tracking-wide mb-2">
+          <div className="text-white space-y-4">
+            <h3 className="text-green-400 text-sm font-semibold uppercase tracking-widest">
               Amenities
             </h3>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Work Where the Action is
+            <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
+              Premium Workspaces for Modern Businesses
             </h2>
-            <p className="text-gray-200 mb-4 leading-relaxed">
-              Premium workspaces from 5th to 8th floor designed for professionals, startups,
-              and enterprises offering plug-and-play offices.
+            <p className="text-gray-300 leading-relaxed">
+              Elevate your work experience with <span className="text-green-400">state-of-the-art offices</span> 
+              from the 5th to 8th floor. Designed for startups, professionals, and enterprises, 
+              these plug-and-play spaces provide flexibility and functionality in one dynamic setup.
             </p>
-            <p className="text-gray-200 mb-2">
-              <strong>Smart Design:</strong> Office Units with customizable layouts.
-            </p>
-            <p className="text-gray-200 mb-2">
-              <strong>Perks That Matter:</strong> high-speed elevators, 24x7 power backup, and a food court just an elevator ride away.
-            </p>
-            <p className="text-gray-200">
-              <strong>First Impressions:</strong> impress clients with a lobby that makes for a grand entry.
-            </p>
+            <ul className="space-y-2 text-gray-300">
+              <li><strong>Smart Design:</strong> Fully customizable office layouts.</li>
+              <li><strong>Perks That Matter:</strong> High-speed elevators, 24x7 power backup, and a food court just steps away.</li>
+              <li><strong>Grand Entry:</strong> A welcoming lobby designed to impress clients and visitors.</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Section 2 */}
+      {/* Section 2 - Studio Apartments */}
       <section
         className="relative py-20 px-6 md:px-12 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bg07})` }}
+        style={{ backgroundImage: `url(${innerSlider01})` }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/60 to-black/40"></div>
+
+        <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           {/* Left Side - Text */}
-          <div className="text-white order-2 md:order-1">
-            <h3 className="text-green-400 text-sm font-semibold uppercase tracking-wide mb-2">
+          <div className="text-white space-y-4 order-2 md:order-1">
+            <h3 className="text-green-400 text-sm font-semibold uppercase tracking-widest">
               Amenities
             </h3>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
-              Contemporary Living for Urban Professionals
+            <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">
+              Stylish Living Spaces for Urban Professionals
             </h2>
-            <p className="text-gray-200 mb-4 leading-relaxed">
-              450+ studio apartments from 9th to 24th floor designed for those aspiring for a lifestyle that reflects their status.
+            <p className="text-gray-300 leading-relaxed">
+              Discover 450+ <span className="text-green-400">studio apartments</span> from the 9th to 24th floor, 
+              designed for ambitious individuals seeking a lifestyle that matches their aspirations.
             </p>
-            <p className="text-gray-200 mb-2">
-              Space-efficient layouts with modern interiors
-            </p>
-            <p className="text-gray-200">
-              Perfect for young professionals, expats, and urban dwellers.
-            </p>
+            <ul className="space-y-2 text-gray-300">
+              <li>Space-optimized layouts with premium interiors</li>
+              <li>Ideal for young professionals, expats, and modern city dwellers</li>
+              <li>Blend of comfort, style, and convenience</li>
+            </ul>
           </div>
 
           {/* Right Side - Image */}
@@ -80,7 +80,7 @@ const Amenities = () => {
             <img
               src={innerSlider01}
               alt="Contemporary Studio Apartments"
-              className="rounded-2xl shadow-lg max-w-full h-auto"
+              className="rounded-2xl shadow-xl max-w-full h-auto transform hover:scale-105 transition duration-500 ease-in-out"
               loading="lazy"
             />
           </div>

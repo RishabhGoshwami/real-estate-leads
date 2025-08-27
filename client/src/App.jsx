@@ -36,6 +36,7 @@ function App() {
 
       {/* Main sections */}
       <AboutSection />
+      <PricePlanSection />
       <FloatingButtons />
      <FloorPlanSection openForm={() => setIsFormOpen(true)} />
       <Amenities/>
@@ -45,7 +46,7 @@ function App() {
        <LocationDetails/>
        <SustainabilitySection/>
        <Sector12/>
-      <PricePlanSection />
+      
       <GallerySection/>
 
       {/* Popup form */}

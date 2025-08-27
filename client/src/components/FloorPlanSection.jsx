@@ -1,49 +1,50 @@
 import React from "react";
 import { FaStore, FaUtensils, FaBuilding, FaBed } from "react-icons/fa";
-import testimonialsBg from "../assets/testimonials_background.jpg"; // ✅ background image import
 
 const projectComponents = [
   {
     title: "Retail Shops & Anchor Stores",
     floors: "Lower Ground to 2nd Floor",
     purpose:
-      "To host a wide range of retail outlets and anchor stores, catering to both everyday shopping and premium brands.",
+      "A vibrant retail destination designed to bring together everyday essentials and premium lifestyle brands under one roof.",
     design:
-      "Spacious, open-floor layouts for tenant flexibility. High visibility and direct access from adjoining roads to boost foot traffic.",
+      "Open, flexible layouts with maximum frontage and easy road access to ensure high visibility and seamless footfall.",
     features:
-      "Large-scale anchor stores on the Lower Ground floor to serve as crowd pullers and establish a strong retail destination.",
-    icon: <FaStore className="text-green-600 text-4xl" />,
+      "Large anchor stores on the Lower Ground floor act as key attractions, driving traffic across the retail zone.",
+    icon: <FaStore className="text-green-500 text-4xl" />,
   },
   {
     title: "Restaurants",
     floors: "3rd Floor",
-    purpose: "To offer fine dining options for a tranquil dining experience.",
+    purpose:
+      "An elevated dining hub offering a mix of fine dining, casual eateries, and culinary experiences.",
     design:
-      "Open, airy spaces with large windows to maximize natural light and offer scenic views. Green terraces provide an organic connection to nature.",
+      "Spacious interiors with floor-to-ceiling windows for natural light, complemented by lush green terrace extensions.",
     features:
-      "Landscaped outdoor seating areas for comfortable dining surrounded by greenery and urban vistas.",
-    icon: <FaUtensils className="text-green-600 text-4xl" />,
+      "Beautifully landscaped outdoor seating spaces that provide a refreshing dining atmosphere amidst urban energy.",
+    icon: <FaUtensils className="text-green-500 text-4xl" />,
   },
   {
     title: "Offices",
     floors: "5th to 8th Floors",
     purpose:
-      "To provide modern workspaces for professionals, startups, and established businesses.",
+      "Smart business workspaces designed for startups, professionals, and established enterprises.",
     design:
-      "Contemporary office layouts with high-speed elevators, energy-efficient HVAC systems, and flexible unit configurations.",
-    features: "Approx. 132 office units to accommodate varied business needs.",
-    icon: <FaBuilding className="text-green-600 text-4xl" />,
+      "Flexible configurations with energy-efficient HVAC, advanced infrastructure, and high-speed elevator access.",
+    features:
+      "Over 130 modern office units tailored to suit diverse business requirements.",
+    icon: <FaBuilding className="text-green-500 text-4xl" />,
   },
   {
     title: "Studio Apartments",
     floors: "9th to 24th Floors",
     purpose:
-      "To deliver modern urban living for professionals, small families, and city dwellers.",
+      "Modern living crafted for professionals and urban residents seeking style and convenience.",
     design:
-      "Smartly designed studios focusing on space optimization, natural lighting, and modern aesthetics.",
+      "Space-optimized layouts with abundant natural light, premium finishes, and elegant aesthetics.",
     features:
-      "Private Gym exclusively for residents & an In-house Restaurant for added convenience.",
-    icon: <FaBed className="text-green-600 text-4xl" />,
+      "Exclusive resident-only gym and an in-house restaurant, creating a self-sufficient lifestyle hub.",
+    icon: <FaBed className="text-green-500 text-4xl" />,
   },
 ];
 
@@ -51,37 +52,38 @@ const FloorPlanSection = () => {
   return (
     <section
       id="floor-plan"
-      className="relative py-16 px-6 md:px-12 bg-cover bg-center scroll-mt-20"
-      style={{ backgroundImage: `url(${testimonialsBg})` }}
+      className="relative py-20 px-6 md:px-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 scroll-mt-20"
     >
-      {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
       <div className="relative max-w-7xl mx-auto">
-        <div className="text-center mb-12 text-white">
-          <h2 className="text-3xl md:text-4xl font-bold">
+        {/* Heading */}
+        <div className="text-center mb-14 text-white">
+          <h2 className="text-4xl md:text-5xl font-extrabold">
             Project <span className="text-green-400">Components</span>
           </h2>
-          <p className="mt-3 max-w-3xl mx-auto text-lg text-gray-200">
-            Discover thoughtfully planned spaces blending retail, dining, work,
-            and modern urban living — all within one integrated development.
+          <p className="mt-4 max-w-3xl mx-auto text-lg text-gray-300 leading-relaxed">
+            Explore a thoughtfully designed ecosystem combining shopping, dining,
+            workspaces, and modern living — all within one landmark destination.
           </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+        {/* Cards */}
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2">
           {projectComponents.map((component, idx) => (
             <div
               key={idx}
-              className="bg-white/95 rounded-2xl shadow-lg p-6 hover:shadow-2xl transition flex flex-col"
+              className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition transform hover:-translate-y-2 duration-500 p-8 flex flex-col"
             >
               <div className="flex items-center gap-4 mb-4">
                 {component.icon}
-                <h3 className="text-xl font-semibold text-gray-800">
+                <h3 className="text-xl font-bold text-gray-800">
                   {component.title}
                 </h3>
               </div>
               <p className="text-sm text-gray-500 mb-2">
-                <strong>Floors:</strong> {component.floors}
+                <strong className="text-gray-700">Floors:</strong> {component.floors}
               </p>
               <p className="text-gray-700 mb-3">
                 <strong>Purpose:</strong> {component.purpose}
