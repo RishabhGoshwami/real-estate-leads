@@ -171,7 +171,7 @@ const Footer = () => {
                 <TwitterIcon />
               </a>
               <a
-                href="https://www.youtube.com/@niralaworld9165"
+                href="https://youtube.com/@propertyexpertrealtors?si=CinG5e80OwYdNhSM"
                 className="hover:text-red-500 transition"
               >
                 <YoutubeIcon />
