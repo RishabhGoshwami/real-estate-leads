@@ -153,13 +153,13 @@ const Footer = () => {
             <h4 className="font-semibold mb-3">Follow Us</h4>
             <div className="flex space-x-4">
               <a
-                href="https://www.facebook.com/niralaworldpvtltd/"
+                href="https://www.facebook.com/share/1GXvDdtHU6/"
                 className="hover:text-blue-400 transition"
               >
                 <FacebookIcon />
               </a>
               <a
-                href="https://www.instagram.com/nirala_world/"
+                href="https://www.instagram.com/propertyexpertrealtors?igsh=MWh4c3N0NGMwbGw1NA=="
                 className="hover:text-pink-500 transition"
               >
                 <InstagramIcon />

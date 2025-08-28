@@ -52,7 +52,7 @@ const DownloadSection = () => {
   return (
     <section
       id="download"
-      className="py-20 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white scroll-mt-20"
+      className="py-24 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white scroll-mt-20"
     >
       {/* Heading */}
       <div className="max-w-7xl mx-auto text-center mb-16">
@@ -66,15 +66,8 @@ const DownloadSection = () => {
       </div>
 
       {/* Download Icons Grid */}
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4 max-w-6xl mx-auto mb-20">
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl mx-auto mb-20">
         {[
-          {
-            id: "brochure",
-            icon: <FaFilePdf className="text-green-600 text-5xl mb-3" />,
-            title: "Brochure",
-            badge: "PDF",
-            action: () => handleOpenForm("brochure"),
-          },
           {
             id: "floorplan",
             icon: <FaMap className="text-green-600 text-5xl mb-3" />,
@@ -100,10 +93,10 @@ const DownloadSection = () => {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-center justify-center bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[180px] relative"
+              className="group flex flex-col items-center justify-center bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 min-h-[180px] relative"
             >
               {item.icon}
-              <p className="font-semibold text-gray-800 text-lg text-center">
+              <p className="font-semibold text-gray-800 text-lg text-center mt-2">
                 {item.title}
               </p>
             </a>
@@ -111,29 +104,25 @@ const DownloadSection = () => {
             <div
               key={item.id}
               onClick={item.action}
-              className="group flex flex-col items-center justify-center cursor-pointer bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[180px] relative"
+              className="group flex flex-col items-center justify-center cursor-pointer bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 min-h-[180px] relative"
             >
               {item.icon}
-              <p className="font-semibold text-gray-800 text-lg text-center">
+              <p className="font-semibold text-gray-800 text-lg text-center mt-2">
                 {item.title}
               </p>
-              {item.badge && (
-                <span className="absolute top-3 right-3 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                  {item.badge}
-                </span>
-              )}
             </div>
           )
         )}
       </div>
 
       {/* ✅ Brochure Preview Section */}
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-3xl shadow-2xl border border-gray-200">
         <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
           Preview Brochure
         </h3>
 
-        <div className="flex justify-center border rounded-lg shadow-inner p-4 bg-gray-50 overflow-hidden">
+        {/* PDF Viewer */}
+        <div className="flex justify-center border rounded-2xl shadow-inner p-4 bg-gray-50 overflow-hidden transition-transform duration-300 hover:scale-[1.01]">
           <Document file={BrochurePDF} onLoadSuccess={onDocumentLoadSuccess}>
             <Page pageNumber={pageNumber} width={420} />
           </Document>
@@ -144,7 +133,7 @@ const DownloadSection = () => {
           <button
             onClick={goToPrevPage}
             disabled={pageNumber === 1}
-            className="px-4 py-2 bg-green-600 text-white rounded-full disabled:opacity-40 flex items-center gap-2 text-sm font-medium shadow-md hover:bg-green-700 transition"
+            className="px-4 py-2 bg-green-600 text-white rounded-full disabled:opacity-50 flex items-center gap-2 text-sm font-medium shadow-md hover:bg-green-700 transition"
           >
             <FaChevronLeft /> Prev
           </button>
@@ -156,22 +145,32 @@ const DownloadSection = () => {
           <button
             onClick={goToNextPage}
             disabled={pageNumber === numPages}
-            className="px-4 py-2 bg-green-600 text-white rounded-full disabled:opacity-40 flex items-center gap-2 text-sm font-medium shadow-md hover:bg-green-700 transition"
+            className="px-4 py-2 bg-green-600 text-white rounded-full disabled:opacity-50 flex items-center gap-2 text-sm font-medium shadow-md hover:bg-green-700 transition"
           >
             Next <FaChevronRight />
+          </button>
+        </div>
+
+        {/* ✅ Download Brochure Button */}
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={() => handleOpenForm("brochure")}
+            className="flex items-center gap-3 px-6 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 hover:scale-105 transition-all duration-300"
+          >
+            <FaFilePdf className="text-xl" /> Download Brochure
           </button>
         </div>
       </div>
 
       {/* ✅ RERA Details Card */}
-      <div className=" mx-auto bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mt-20">
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-3xl shadow-2xl border border-gray-200 mt-20">
         <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-6 text-center">
           RERA Registration Details
         </h3>
 
         <div className="flex flex-col sm:flex-row items-center sm:items-start sm:justify-between gap-6">
           {/* Left Content */}
-          <div className="space-y-2 text-gray-700 text-sm sm:text-base leading-relaxed">
+          <div className="space-y-3 text-gray-700 text-sm sm:text-base leading-relaxed">
             <p>
               <span className="font-semibold text-gray-900">Project:</span>{" "}
               Nirala Gateway
@@ -195,11 +194,11 @@ const DownloadSection = () => {
 
           {/* Right QR Code */}
           <div className="flex flex-col items-center">
-            <div className="p-2 bg-gray-50 rounded-lg border shadow-sm">
+            <div className="p-3 bg-gray-50 rounded-2xl border shadow-sm">
               <img
                 src={QRCodeImg}
                 alt="RERA QR Code - Nirala Gateway"
-                className="w-11 h-11 object-contain"
+                className="w-12 h-12 object-contain"
                 loading="lazy"
               />
             </div>
@@ -208,7 +207,7 @@ const DownloadSection = () => {
         </div>
       </div>
 
-      {/* Popup Form */}
+      {/* ✅ Popup Form */}
       <PopupForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
