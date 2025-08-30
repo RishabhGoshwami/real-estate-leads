@@ -1,11 +1,14 @@
-import React from "react";
-import property6 from "../assets/background_01.jpg"; // apna correct path check kar lo
+// src/components/HeroBanner.jsx
+import React, { useState } from "react";
+import property6 from "../assets/background_01.jpg"; // ✅ correct path check kar lo
 import PopupForm from "./PopupForm"; // ✅ import popup form
 
-const HeroBanner = ({ isOpen, openPopup, closePopup }) => {
+const HeroBanner = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
     <section
-      className="relative w-full h-[100vh] overflow-hidden"
+      className="relative w-full h-screen overflow-hidden"
       aria-label="Nirala World Hero Banner"
     >
       {/* Background Image */}
@@ -32,19 +35,11 @@ const HeroBanner = ({ isOpen, openPopup, closePopup }) => {
             1 RK Studio Apartment
           </h2>
 
-          <p className="text-lg text-gray-800 font-bold mb-2">
-            ₹ 65 L - 1.2 Cr
-          </p>
+          <p className="text-lg text-gray-800 font-bold mb-2">₹ 65 L - 1.2 Cr</p>
 
-          <p className="text-sm text-gray-700 mb-1">
-            📍 Sector-12, Greater Noida West
-          </p>
-          <p className="text-sm text-gray-700 mb-1">
-            🏗 Completion: Apr, 2030
-          </p>
-          <p className="text-sm text-green-700 font-medium mb-4">
-            ✅ RERA Approved
-          </p>
+          <p className="text-sm text-gray-700 mb-1">📍 Sector-12, Greater Noida West</p>
+          <p className="text-sm text-gray-700 mb-1">🏗 Completion: Apr, 2030</p>
+          <p className="text-sm text-green-700 font-medium mb-4">✅ RERA Approved</p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 justify-center mb-4">
@@ -64,9 +59,9 @@ const HeroBanner = ({ isOpen, openPopup, closePopup }) => {
 
           {/* CTA Button */}
           <button
-            onClick={openPopup}
+            onClick={() => setIsPopupOpen(true)} // ✅ popup open karega
             className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
-                       hover:scale-105 transform transition duration-300 
+                       hover:scale-105 transition-transform duration-300 
                        text-black rounded-xl shadow-lg"
           >
             📖 Request E-Brochure
@@ -74,8 +69,15 @@ const HeroBanner = ({ isOpen, openPopup, closePopup }) => {
         </div>
       </div>
 
-      {/* Popup Form */}
-      <PopupForm isOpen={isOpen} onClose={closePopup} />
+      {/* Popup Component */}
+      <PopupForm
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onSuccess={() => {
+          setIsPopupOpen(false);
+          alert("Form submitted successfully! ✅");
+        }}
+      />
     </section>
   );
 };

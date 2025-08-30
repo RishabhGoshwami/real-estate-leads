@@ -4,44 +4,42 @@ import HeroBanner from "./components/HeroBanner";
 import AboutSection from "./components/AboutSection";
 import LuxuryAmenities from "./components/LuxuryAmenities";
 import FloorPlanSection from "./components/FloorPlanSection";
-import PricePlanSection from "./components/DownloadSection";
+import DownloadSection from "./components/DownloadSection"; // 🔹 fixed naming
 import Footer from "./components/Footer";
-// import ContactSection from "./components/ContactSection";
 import PopupForm from "./components/PopupForm";
 import AutoPopupForm from "./components/AutoPopupForm";
 import FloatingButtons from "./components/FloatingButtons";
-import Amenities from "./components/amenities";
+import Amenities from "./components/Amenities";
 import Gateway from "./components/Gateway";
 import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
 
-
 function App() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  // 🔹 Single state to track form type
+  const [formType, setFormType] = useState(null);
+
+  // 🔹 Open specific form
+  const handleOpenForm = (type) => setFormType(type);
+  const handleCloseForm = () => setFormType(null);
 
   return (
     <>
       {/* Navbar with open form */}
-      <Navbar openForm={() => setIsFormOpen(true)} />
+      <Navbar openForm={() => handleOpenForm("contact")} />
 
       {/* Hero Banner with brochure button */}
-      <HeroBanner
-        isOpen={isFormOpen}
-        openPopup={() => setIsFormOpen(true)}
-        closePopup={() => setIsFormOpen(false)}
-      />
+      <HeroBanner openForm={() => handleOpenForm("brochure")} />
 
       {/* Auto popup form */}
-      <AutoPopupForm />
+      <AutoPopupForm openForm={() => handleOpenForm("auto")} />
 
       {/* Main sections */}
       <AboutSection />
-      <PricePlanSection />
-    
-      <FloatingButtons />
-      <FloorPlanSection openForm={() => setIsFormOpen(true)} />
+      <DownloadSection openForm={() => handleOpenForm("brochure")} />
+      <FloatingButtons openForm={() => handleOpenForm("contact")} />
+      <FloorPlanSection openForm={() => handleOpenForm("floorplan")} />
       <Amenities />
       <LuxuryAmenities />
       <Gateway />
@@ -50,8 +48,12 @@ function App() {
       <Sector12 />
       <GallerySection />
 
-      {/* Popup form */}
-      <PopupForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+      {/* Popup form controlled centrally */}
+      <PopupForm 
+        isOpen={!!formType} 
+        type={formType} 
+        onClose={handleCloseForm} 
+      />
 
       {/* Footer */}
       <Footer />

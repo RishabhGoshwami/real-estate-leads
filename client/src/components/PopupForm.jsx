@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PopupForm = ({ isOpen, onClose }) => {
+const PopupForm = ({ isOpen, onClose, onSuccess }) => {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
@@ -11,7 +11,6 @@ const PopupForm = ({ isOpen, onClose }) => {
     e.preventDefault();
     setLoading(true);
 
-    // ✅ Send data to Web3Forms
     const formData = new FormData();
     formData.append("access_key", "d5f504e4-3e5a-4dda-8255-62123d25fe81");
     formData.append("name", name);
@@ -25,15 +24,13 @@ const PopupForm = ({ isOpen, onClose }) => {
 
       const result = await response.json();
       if (result.success) {
-        alert("✅ Thank you! Your details have been submitted.");
-        setName("");
-        setMobile("");
-        onClose();
+        // ✅ Instead of only closing, call success callback
+        if (onSuccess) onSuccess();
       } else {
-        alert("❌ Error: " + result.message);
+        alert("Error: " + result.message);
       }
     } catch (err) {
-      alert("⚠️ Something went wrong!");
+      alert("Something went wrong!");
     }
 
     setLoading(false);
@@ -52,9 +49,6 @@ const PopupForm = ({ isOpen, onClose }) => {
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Request Brochure & Floor Plan
         </h2>
-        <p className="text-gray-600 mb-6 text-sm">
-          Please fill in your details below. Our team will reach out to you shortly.
-        </p>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <input
             type="text"
@@ -62,7 +56,7 @@ const PopupForm = ({ isOpen, onClose }) => {
             value={name}
             required
             onChange={(e) => setName(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="border border-gray-300 rounded-lg px-4 py-2"
           />
           <input
             type="tel"
@@ -70,7 +64,7 @@ const PopupForm = ({ isOpen, onClose }) => {
             value={mobile}
             required
             onChange={(e) => setMobile(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="border border-gray-300 rounded-lg px-4 py-2"
           />
           <button
             type="submit"
