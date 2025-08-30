@@ -3,15 +3,41 @@ import React, { useState } from "react";
 const PopupForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  // WhatsApp link
-  const whatsappLink = `https://wa.me/919990989295?text=Hello%2C%20My%20name%20is%20${encodeURIComponent(
-    name
-  )}%20and%20my%20mobile%20number%20is%20${encodeURIComponent(
-    mobile
-  )}.%20I%20am%20interested%20in%20the%20Brochure%20and%20Floor%20Plan.`;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // ✅ Send data to Web3Forms
+    const formData = new FormData();
+    formData.append("access_key", "d5f504e4-3e5a-4dda-8255-62123d25fe81");
+    formData.append("name", name);
+    formData.append("mobile", mobile);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert("✅ Thank you! Your details have been submitted.");
+        setName("");
+        setMobile("");
+        onClose();
+      } else {
+        alert("❌ Error: " + result.message);
+      }
+    } catch (err) {
+      alert("⚠️ Something went wrong!");
+    }
+
+    setLoading(false);
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
@@ -29,13 +55,7 @@ const PopupForm = ({ isOpen, onClose }) => {
         <p className="text-gray-600 mb-6 text-sm">
           Please fill in your details below. Our team will reach out to you shortly.
         </p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            window.open(whatsappLink, "_blank");
-          }}
-          className="flex flex-col space-y-4"
-        >
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <input
             type="text"
             placeholder="Your Name"
@@ -54,9 +74,10 @@ const PopupForm = ({ isOpen, onClose }) => {
           />
           <button
             type="submit"
+            disabled={loading}
             className="bg-green-600 text-white rounded-lg px-4 py-2 font-medium hover:bg-green-700 transition"
           >
-            Submit & WhatsApp
+            {loading ? "Sending..." : "Submit"}
           </button>
         </form>
       </div>
