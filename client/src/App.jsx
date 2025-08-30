@@ -9,7 +9,6 @@ import Footer from "./components/Footer";
 import PopupForm from "./components/PopupForm";
 import AutoPopupForm from "./components/AutoPopupForm";
 import FloatingButtons from "./components/FloatingButtons";
-import Amenities from "./components/Amenities";
 import Gateway from "./components/Gateway";
 import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection";
@@ -40,7 +39,7 @@ function App() {
       <DownloadSection openForm={() => handleOpenForm("brochure")} />
       <FloatingButtons openForm={() => handleOpenForm("contact")} />
       <FloorPlanSection openForm={() => handleOpenForm("floorplan")} />
-      <Amenities />
+      
       <LuxuryAmenities />
       <Gateway />
       <LocationDetails />
