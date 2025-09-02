@@ -16,7 +16,7 @@ import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
 import ThankYou from "./components/ThankYou";
-
+import Disclaimer from "./components/Disclaimer";
 // 🔹 HomePage component (all sections together)
 const HomePage = ({ openForm }) => (
   <>
@@ -56,6 +56,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage openForm={handleOpenForm} />} />
         <Route path="/thank-you" element={<ThankYou />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
       </Routes>
     </>
   );

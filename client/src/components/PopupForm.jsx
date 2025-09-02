@@ -95,9 +95,9 @@ const PopupForm = ({ isOpen, onClose, onSuccess }) => {
               Select Your Budget Range
             </option>
             <option value="65-75 L">₹65 L - ₹75 L</option>
-            <option value="75-85 L">₹75 L - ₹85 L</option>
-            <option value="85-95 L">₹85 L - ₹95 L</option>
-            <option value="95-1 Cr">₹95 L - ₹1 Cr</option>
+            <option value="75-85 L">₹76 L - ₹85 L</option>
+            <option value="85-95 L">₹86 L - ₹95 L</option>
+            <option value="95-1 Cr">₹96 L - ₹1 Cr</option>
             <option value="Above 1 Cr">Above ₹1 Cr</option>
           </select>
 

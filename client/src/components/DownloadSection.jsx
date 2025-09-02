@@ -66,7 +66,8 @@ const DownloadSection = () => {
       </div>
 
       {/* Download Icons Grid */}
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-6xl mx-auto mb-20">
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 justify-center max-w-6xl mx-auto mb-20">
+
         {[
           {
             id: "floorplan",
