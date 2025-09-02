@@ -1,6 +1,6 @@
 // src/components/HeroBanner.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import property6 from "../assets/background_01.jpg"; // ✅ Ensure path is correct
 
 const HeroBanner = () => {
@@ -83,10 +83,16 @@ const HeroBanner = () => {
             1 RK Studio Apartment
           </h2>
 
-          <p className="text-lg text-gray-800 font-bold mb-2">₹ 65 L - 1.2 Cr</p>
-          <p className="text-sm text-gray-700 mb-1">📍 Sector-12, Greater Noida West</p>
+          <p className="text-lg text-gray-800 font-bold mb-2">
+            ₹ 65 L - 1.2 Cr
+          </p>
+          <p className="text-sm text-gray-700 mb-1">
+            📍 Sector-12, Greater Noida West
+          </p>
           <p className="text-sm text-gray-700 mb-1">🏗 Completion: Apr, 2030</p>
-          <p className="text-sm text-green-700 font-medium mb-4">✅ RERA Approved</p>
+          <p className="text-sm text-white font-bold bg-green-600 px-3 py-1 rounded-full inline-block mb-4">
+            ✅ RERA Approved: UPRERAPRJ531916
+          </p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 justify-center mb-6">
