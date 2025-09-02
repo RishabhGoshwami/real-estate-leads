@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AutoPopupForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", number: "" });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
-  // Show popup after 5 sec
+  const navigate = useNavigate();
+
+  // Auto open after 5 sec
   useEffect(() => {
     const timer = setTimeout(() => setIsOpen(true), 5000);
     return () => clearTimeout(timer);
   }, []);
 
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-    setSuccess(false); // reset success message when closing
-  };
+  const closePopup = () => setIsOpen(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -29,7 +28,7 @@ const AutoPopupForm = () => {
     setLoading(true);
 
     const data = new FormData();
-    data.append("access_key", "d5f504e4-3e5a-4dda-8255-62123d25fe81"); // 🔑 Your Web3Forms API Key
+    data.append("access_key", "d5f504e4-3e5a-4dda-8255-62123d25fe81"); // 🔑 Web3Forms API Key
     data.append("name", formData.name);
     data.append("number", formData.number);
 
@@ -41,8 +40,9 @@ const AutoPopupForm = () => {
 
       const result = await res.json();
       if (result.success) {
-        setSuccess(true);
         setFormData({ name: "", number: "" });
+        setIsOpen(false); // ✅ band kar de
+        navigate("/thank-you"); // ✅ redirect
       } else {
         alert("❌ Error: " + result.message);
       }
@@ -62,8 +62,9 @@ const AutoPopupForm = () => {
       role="dialog"
     >
       <div className="bg-white p-8 sm:p-10 rounded-2xl w-11/12 max-w-lg relative shadow-2xl">
+        {/* Close button */}
         <button
-          onClick={togglePopup}
+          onClick={closePopup}
           className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-3xl font-bold"
           aria-label="Close form"
         >
@@ -77,41 +78,36 @@ const AutoPopupForm = () => {
           Contact us to find your dream home.
         </p>
 
-        {success ? (
-          <div className="text-center text-green-600 font-semibold">
-            ✅ Thank you! Your details have been submitted.
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              id="name"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              required
-              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-            <input
-              id="number"
-              type="tel"
-              name="number"
-              value={formData.number}
-              onChange={handleChange}
-              placeholder="Your Number"
-              required
-              className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
-            >
-              {loading ? "Sending..." : "Submit"}
-            </button>
-          </form>
-        )}
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            id="name"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Your Name"
+            required
+            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            id="number"
+            type="tel"
+            name="number"
+            value={formData.number}
+            onChange={handleChange}
+            placeholder="Your Number"
+            required
+            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
+          >
+            {loading ? "Sending..." : "Submit"}
+          </button>
+        </form>
       </div>
     </div>
   );

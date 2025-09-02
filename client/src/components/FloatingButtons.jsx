@@ -37,12 +37,22 @@ const PhoneIcon = () => (
   </svg>
 );
 
-const FloatingButtons = () => {
+const FloatingButtons = ({ onEnquiryClick }) => {
   return (
     <div
       className="fixed right-4 bottom-4 z-50 flex flex-col items-end space-y-3"
       aria-label="Floating contact buttons"
     >
+      {/* Enquiry Now Button */}
+      <button
+        onClick={onEnquiryClick}
+        aria-label="Enquiry Now"
+        className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full shadow-lg font-semibold 
+                   transition duration-300 transform hover:scale-110"
+      >
+        Enquiry Now
+      </button>
+
       {/* WhatsApp Button */}
       <a
         href="https://wa.me/+919990989295"

@@ -51,7 +51,7 @@ const DownloadSection = () => {
 
   return (
     <section
-      id="download"
+      id="Pricing-plan"
       className="py-24 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-white scroll-mt-20"
     >
       {/* Heading */}

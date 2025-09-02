@@ -1,10 +1,58 @@
 // src/components/HeroBanner.jsx
 import React, { useState } from "react";
-import property6 from "../assets/background_01.jpg"; // ✅ correct path check kar lo
-import PopupForm from "./PopupForm"; // ✅ import popup form
+import { useNavigate } from "react-router-dom"; 
+import property6 from "../assets/background_01.jpg"; // ✅ Ensure path is correct
 
 const HeroBanner = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  // 🔹 Form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // 🔹 Input change handler
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 🔹 Submit handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Web3Forms API Key
+          ...formData,
+        }),
+      });
+
+      const result = await response.json();
+
+      // ✅ Form submit success
+      if (result.success) {
+        setFormData({ name: "", email: "", phone: "" }); // Clear form
+        navigate("/thank-you"); // Redirect to ThankYou page
+      } else {
+        alert("❌ Error: " + result.message);
+      }
+    } catch (error) {
+      console.error("❌ Error submitting form:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section
@@ -29,20 +77,19 @@ const HeroBanner = () => {
           Welcome to Your Dream Home
         </h1>
 
-        {/* Property Info Box */}
-        <div className="bg-white/40 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-8 max-w-lg w-full mb-6">
+        {/* Property Info Box + Form */}
+        <div className="bg-white/40 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-8 max-w-lg w-full">
           <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
             1 RK Studio Apartment
           </h2>
 
           <p className="text-lg text-gray-800 font-bold mb-2">₹ 65 L - 1.2 Cr</p>
-
           <p className="text-sm text-gray-700 mb-1">📍 Sector-12, Greater Noida West</p>
           <p className="text-sm text-gray-700 mb-1">🏗 Completion: Apr, 2030</p>
           <p className="text-sm text-green-700 font-medium mb-4">✅ RERA Approved</p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 justify-center mb-4">
+          <div className="flex flex-wrap gap-2 justify-center mb-6">
             <span className="px-3 py-1 bg-yellow-200 text-yellow-900 text-xs font-semibold rounded-full">
               NEW LAUNCH
             </span>
@@ -57,27 +104,47 @@ const HeroBanner = () => {
             </span>
           </div>
 
-          {/* CTA Button */}
-          <button
-            onClick={() => setIsPopupOpen(true)} // ✅ popup open karega
-            className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
-                       hover:scale-105 transition-transform duration-300 
-                       text-black rounded-xl shadow-lg"
-          >
-            📖 Request E-Brochure
-          </button>
+          {/* ✅ Always Visible Form */}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-400"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Your Email"
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-400"
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Your Phone"
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-400"
+              required
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
+                         hover:scale-105 transition-transform duration-300 
+                         text-black rounded-xl shadow-lg disabled:opacity-50"
+            >
+              {loading ? "Submitting..." : "📖 Request E-Brochure"}
+            </button>
+          </form>
         </div>
       </div>
-
-      {/* Popup Component */}
-      <PopupForm
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-        onSuccess={() => {
-          setIsPopupOpen(false);
-          alert("Form submitted successfully! ✅");
-        }}
-      />
     </section>
   );
 };

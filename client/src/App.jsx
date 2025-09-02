@@ -1,61 +1,62 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom"; // ✅ No BrowserRouter here
+
 import Navbar from "./components/Navbar";
 import HeroBanner from "./components/HeroBanner";
 import AboutSection from "./components/AboutSection";
 import LuxuryAmenities from "./components/LuxuryAmenities";
 import FloorPlanSection from "./components/FloorPlanSection";
-import DownloadSection from "./components/DownloadSection"; // 🔹 fixed naming
+import DownloadSection from "./components/DownloadSection";
 import Footer from "./components/Footer";
 import PopupForm from "./components/PopupForm";
-import AutoPopupForm from "./components/AutoPopupForm";
 import FloatingButtons from "./components/FloatingButtons";
 import Gateway from "./components/Gateway";
 import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
+import ThankYou from "./components/ThankYou";
+
+// 🔹 HomePage component (all sections together)
+const HomePage = ({ openForm }) => (
+  <>
+    <Navbar openForm={() => openForm("contact")} />
+    <HeroBanner openForm={() => openForm("brochure")} />
+    <AboutSection />
+    <DownloadSection openForm={() => openForm("brochure")} />
+    <FloorPlanSection openForm={() => openForm("floorplan")} />
+    <LuxuryAmenities />
+    <Gateway />
+    <LocationDetails />
+    <SustainabilitySection />
+    <Sector12 />
+    <GallerySection />
+    <FloatingButtons onEnquiryClick={() => openForm("contact")} />
+    <Footer />
+  </>
+);
 
 function App() {
-  // 🔹 Single state to track form type
   const [formType, setFormType] = useState(null);
 
-  // 🔹 Open specific form
   const handleOpenForm = (type) => setFormType(type);
   const handleCloseForm = () => setFormType(null);
 
   return (
     <>
-      {/* Navbar with open form */}
-      <Navbar openForm={() => handleOpenForm("contact")} />
-
-      {/* Hero Banner with brochure button */}
-      <HeroBanner openForm={() => handleOpenForm("brochure")} />
-
-      {/* Auto popup form */}
-      <AutoPopupForm openForm={() => handleOpenForm("auto")} />
-
-      {/* Main sections */}
-      <AboutSection />
-      <DownloadSection openForm={() => handleOpenForm("brochure")} />
-      <FloatingButtons openForm={() => handleOpenForm("contact")} />
-      <FloorPlanSection openForm={() => handleOpenForm("floorplan")} />
-      
-      <LuxuryAmenities />
-      <Gateway />
-      <LocationDetails />
-      <SustainabilitySection />
-      <Sector12 />
-      <GallerySection />
-
-      {/* Popup form controlled centrally */}
-      <PopupForm 
-        isOpen={!!formType} 
-        type={formType} 
-        onClose={handleCloseForm} 
+      {/* Global Popup Form */}
+      <PopupForm
+        isOpen={!!formType}
+        type={formType}
+        onClose={handleCloseForm}
+        triggerAutoPopup={() => handleOpenForm("auto")}
       />
 
-      {/* Footer */}
-      <Footer />
+      {/* Routes */}
+      <Routes>
+        <Route path="/" element={<HomePage openForm={handleOpenForm} />} />
+        <Route path="/thank-you" element={<ThankYou />} />
+      </Routes>
     </>
   );
 }
