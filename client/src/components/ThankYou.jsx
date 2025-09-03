@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const ThankYou = () => {
+  useEffect(() => {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17499013491/IbexCNjz-JEbEPOCl5hB",
+        value: 1.0,
+        currency: "INR",
+      });
+    }
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100 px-6">
       <div className="bg-white shadow-lg rounded-2xl p-8 text-center max-w-md">

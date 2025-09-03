@@ -1,7 +1,8 @@
 // src/components/HeroBanner.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import property6 from "../assets/background_01.jpg"; // ✅ Ensure path is correct
+import property6 from "../assets/background_01.jpg";
+import property7 from "../assets/slider_background_01.jpg"; // ✅ New Image
 
 const HeroBanner = () => {
   // 🔹 Form state
@@ -13,6 +14,18 @@ const HeroBanner = () => {
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // 🔹 Slider images
+  const images = [property6, property7];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 🔹 Auto slide effect (every 5 sec)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000); // 5 sec
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   // 🔹 Input change handler
   const handleChange = (e) => {
@@ -32,17 +45,16 @@ const HeroBanner = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Web3Forms API Key
+          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81",
           ...formData,
         }),
       });
 
       const result = await response.json();
 
-      // ✅ Form submit success
       if (result.success) {
-        setFormData({ name: "", email: "", phone: "" }); // Clear form
-        navigate("/thank-you"); // Redirect to ThankYou page
+        setFormData({ name: "", email: "", phone: "" });
+        navigate("/thank-you");
       } else {
         alert("❌ Error: " + result.message);
       }
@@ -59,98 +71,111 @@ const HeroBanner = () => {
       className="relative w-full h-screen overflow-hidden"
       aria-label="Nirala World Hero Banner"
     >
-      {/* Background Image */}
-      <img
-        src={property6}
-        alt="Nirala World property"
-        className="absolute w-full h-full object-cover"
-        loading="eager"
-      />
+      {/* Background Images (Sliding) */}
+      {images.map((img, index) => (
+        <img
+          key={index}
+          src={img}
+          alt={`background-${index}`}
+          className={`absolute w-full h-full object-cover transition-opacity duration-1000 ${
+            index === currentIndex ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
-        {/* Title */}
-        <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg mb-4">
-          Welcome to Your Dream Home
-        </h1>
+     <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
+  {/* Title */}
+  <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)] mb-2">
+    <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent">
+      Nirala Gateway
+    </span>
+  </h1>
 
-        {/* Property Info Box + Form */}
-        <div className="bg-white/40 backdrop-blur-md shadow-2xl rounded-2xl p-6 md:p-8 max-w-lg w-full">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
-            1 RK Studio Apartment
-          </h2>
+  <p className="text-lg md:text-2xl font-semibold text-white tracking-wide 
+               inline-block pt-2 mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+    Best Investment Opportunity
+  </p>
 
-          <p className="text-lg text-gray-800 font-bold mb-2">
-            ₹ 65 L - 1.2 Cr
-          </p>
-          <p className="text-sm text-gray-700 mb-1">
-            📍 Sector-12, Greater Noida West
-          </p>
-          <p className="text-sm text-gray-700 mb-1">🏗 Completion: Apr, 2030</p>
-          <p className="text-sm text-white font-bold bg-green-600 px-3 py-1 rounded-full inline-block mb-4">
-            ✅ RERA Approved: UPRERAPRJ531916
-          </p>
+  {/* Property Info Box + Form */}
+{/* Property Info Box + Form */}
+<div className="bg-black/35 shadow-2xl rounded-2xl p-6 md:p-8 max-w-lg w-full border border-white/40">
+  <h2 className="text-xl md:text-2xl font-semibold text-white mb-3">
+    1 RK Studio Apartment
+  </h2>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 justify-center mb-6">
-            <span className="px-3 py-1 bg-yellow-200 text-yellow-900 text-xs font-semibold rounded-full">
-              NEW LAUNCH
-            </span>
-            <span className="px-3 py-1 bg-blue-200 text-blue-900 text-xs font-semibold rounded-full">
-              High Price Appreciation
-            </span>
-            <span className="px-3 py-1 bg-green-200 text-green-900 text-xs font-semibold rounded-full">
-              Units of Choice
-            </span>
-            <span className="px-3 py-1 bg-purple-200 text-purple-900 text-xs font-semibold rounded-full">
-              Easy Payment Plans
-            </span>
-          </div>
+  <p className="text-lg text-yellow-300 font-bold mb-2">
+    ₹ 65 L - 1.2 Cr
+  </p>
+  <p className="text-sm text-white mb-1">
+    📍 Sector-12, Greater Noida West
+  </p>
+  <p className="text-sm text-white mb-1">🏗 Completion: Apr, 2030</p>
+  <p className="text-sm text-black font-bold bg-green-400 px-3 py-1 rounded-full inline-block mb-4">
+    ✅ RERA Approved: UPRERAPRJ531916
+  </p>
 
-          {/* ✅ Always Visible Form */}
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-400"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email"
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-400"
-              required
-            />
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Your Phone"
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-orange-400"
-              required
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
-                         hover:scale-105 transition-transform duration-300 
-                         text-black rounded-xl shadow-lg disabled:opacity-50"
-            >
-              {loading ? "Submitting..." : "📖 Request E-Brochure"}
-            </button>
-          </form>
-        </div>
-      </div>
+  {/* Tags */}
+  <div className="flex flex-wrap gap-2 justify-center mb-6">
+    <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">
+      NEW LAUNCH
+    </span>
+    <span className="px-3 py-1 bg-blue-300 text-black text-xs font-semibold rounded-full">
+      High Price Appreciation
+    </span>
+    <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">
+      Units of Choice
+    </span>
+    <span className="px-3 py-1 bg-purple-300 text-black text-xs font-semibold rounded-full">
+      Easy Payment Plans
+    </span>
+  </div>
+
+  {/* ✅ Transparent Form */}
+  <form onSubmit={handleSubmit} className="space-y-3">
+    <input
+      type="text"
+      name="name"
+      value={formData.name}
+      onChange={handleChange}
+      placeholder="Your Name"
+      className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
+      required
+    />
+    <input
+      type="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      placeholder="Your Email"
+      className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
+      required
+    />
+    <input
+      type="tel"
+      name="phone"
+      value={formData.phone}
+      onChange={handleChange}
+      placeholder="Your Phone"
+      className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
+      required
+    />
+    <button
+      type="submit"
+      disabled={loading}
+      className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
+                 hover:scale-105 transition-transform duration-300 
+                 text-black rounded-xl shadow-lg disabled:opacity-50"
+    >
+      {loading ? "Submitting..." : "📖 Request E-Brochure"}
+    </button>
+  </form>
+</div>
+
+</div>
+
     </section>
   );
 };
