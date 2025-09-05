@@ -36,41 +36,38 @@ const HeroBanner = () => {
   };
 
   // ✅ Direct CRM API call (no meta fetch)
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Your API Key
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: "Lead from Nirala Gateway Website", // extra field
-      }),
-    });
+    // CRM API URL
+    const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}
+      &leads_full_name=${encodeURIComponent(formData.name)}
+      &leads_phone_number=${encodeURIComponent(formData.phone)}
+      &leads_email_id=${encodeURIComponent(formData.email)}
+      &leads_type=LEAD
+      &leads_source=${encodeURIComponent("Nirala Gateway")}
+      &leads_re_source=${encodeURIComponent("www.niralaworld.org")}
+      &leads_projects_name=${encodeURIComponent("Nirala Gateway")}
+      &leads_entry_type=Website`;
 
-    const result = await response.json();
+    try {
+      const response = await fetch(apiUrl, { method: "GET" });
+      const result = await response.json();
 
-    if (result.success) {
-      setFormData({ name: "", email: "", phone: "" });
-      navigate("/thank-you"); // ✅ redirect
-    } else {
-      alert("❌ Error: " + (result.message || "Something went wrong"));
+      if (result.success || result.status === "success") {
+        setFormData({ name: "", email: "", phone: "" });
+        navigate("/thank-you");
+      } else {
+        alert("❌ Error: " + (result.message || "Something went wrong"));
+      }
+    } catch (error) {
+      console.error("❌ Error submitting form:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error("❌ Error submitting form:", error);
-    alert("Something went wrong. Please try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <section className="relative w-full h-screen overflow-hidden" aria-label="Nirala World Hero Banner">
