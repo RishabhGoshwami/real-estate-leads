@@ -15,6 +15,9 @@ const HeroBanner = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // 🔑 CRM authentication key
+  const authKey = "VndsbUlpKzhKdWpEbEZNSUNva2t1UT09";
+
   // 🔹 Slider images
   const images = [property6, property7];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,28 +38,31 @@ const HeroBanner = () => {
     });
   };
 
-  // 🔹 Submit handler
+  // 🔹 Submit handler (CRM integration)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81",
-          ...formData,
-        }),
-      });
+    // ✅ CRM API URL (with source, re-source, project)
+    const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}
+      &leads_full_name=${encodeURIComponent(formData.name)}
+      &leads_phone_number=${encodeURIComponent(formData.phone)}
+      &leads_email_id=${encodeURIComponent(formData.email)}
+      &leads_type=LEAD
+      &leads_source=${encodeURIComponent("Nirala Gateway")}
+      &leads_re_source=${encodeURIComponent("www.niralaworld.org")}
+      &leads_projects_name=${encodeURIComponent("Nirala Gateway")}
+      &leads_entry_type=Website`;
 
+    try {
+      const response = await fetch(apiUrl, { method: "GET" });
       const result = await response.json();
 
-      if (result.success) {
+      if (result.success || result.status === "success") {
         setFormData({ name: "", email: "", phone: "" });
         navigate("/thank-you");
       } else {
-        alert("❌ Error: " + result.message);
+        alert("❌ Error: " + (result.message || "Something went wrong"));
       }
     } catch (error) {
       console.error("❌ Error submitting form:", error);
@@ -86,96 +92,89 @@ const HeroBanner = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-     <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
-  {/* Title */}
-  <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)] mb-2">
-    <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent">
-      Nirala Gateway
-    </span>
-  </h1>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
+        {/* Title */}
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)] mb-2">
+          <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent">
+            Nirala Gateway
+          </span>
+        </h1>
 
-  <p className="text-lg md:text-2xl font-semibold text-white tracking-wide 
+        <p className="text-lg md:text-2xl font-semibold text-white tracking-wide 
                inline-block pt-2 mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-    Best Investment Opportunity
-  </p>
+          Best Investment Opportunity
+        </p>
 
-  {/* Property Info Box + Form */}
-{/* Property Info Box + Form */}
-<div className="bg-black/35 shadow-2xl rounded-2xl p-6 md:p-8 max-w-lg w-full border border-white/40">
-  <h2 className="text-xl md:text-2xl font-semibold text-white mb-3">
-    1 RK Studio Apartment
-  </h2>
+        {/* Property Info Box + Form */}
+        <div className="bg-black/35 shadow-2xl rounded-2xl p-6 md:p-8 max-w-lg w-full border border-white/40">
+          <h2 className="text-xl md:text-2xl font-semibold text-white mb-3">
+            1 RK Studio Apartment
+          </h2>
 
-  <p className="text-lg text-yellow-300 font-bold mb-2">
-    ₹ 65 L - 1.2 Cr
-  </p>
-  <p className="text-sm text-white mb-1">
-    📍 Sector-12, Greater Noida West
-  </p>
-  <p className="text-sm text-white mb-1">🏗 Completion: Apr, 2030</p>
-  <p className="text-sm text-black font-bold bg-green-400 px-3 py-1 rounded-full inline-block mb-4">
-    ✅ RERA Approved: UPRERAPRJ531916
-  </p>
+          <p className="text-lg text-yellow-300 font-bold mb-2">₹ 65 L - 1.2 Cr</p>
+          <p className="text-sm text-white mb-1">📍 Sector-12, Greater Noida West</p>
+          <p className="text-sm text-white mb-1">🏗 Completion: Apr, 2030</p>
+          <p className="text-sm text-black font-bold bg-green-400 px-3 py-1 rounded-full inline-block mb-4">
+            ✅ RERA Approved: UPRERAPRJ531916
+          </p>
 
-  {/* Tags */}
-  <div className="flex flex-wrap gap-2 justify-center mb-6">
-    <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">
-      NEW LAUNCH
-    </span>
-    <span className="px-3 py-1 bg-blue-300 text-black text-xs font-semibold rounded-full">
-      High Price Appreciation
-    </span>
-    <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">
-      Units of Choice
-    </span>
-    <span className="px-3 py-1 bg-purple-300 text-black text-xs font-semibold rounded-full">
-      Easy Payment Plans
-    </span>
-  </div>
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 justify-center mb-6">
+            <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">
+              NEW LAUNCH
+            </span>
+            <span className="px-3 py-1 bg-blue-300 text-black text-xs font-semibold rounded-full">
+              High Price Appreciation
+            </span>
+            <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">
+              Units of Choice
+            </span>
+            <span className="px-3 py-1 bg-purple-300 text-black text-xs font-semibold rounded-full">
+              Easy Payment Plans
+            </span>
+          </div>
 
-  {/* ✅ Transparent Form */}
-  <form onSubmit={handleSubmit} className="space-y-3">
-    <input
-      type="text"
-      name="name"
-      value={formData.name}
-      onChange={handleChange}
-      placeholder="Your Name"
-      className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
-      required
-    />
-    <input
-      type="email"
-      name="email"
-      value={formData.email}
-      onChange={handleChange}
-      placeholder="Your Email"
-      className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
-      required
-    />
-    <input
-      type="tel"
-      name="phone"
-      value={formData.phone}
-      onChange={handleChange}
-      placeholder="Your Phone"
-      className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
-      required
-    />
-    <button
-      type="submit"
-      disabled={loading}
-      className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
+          {/* ✅ CRM Integrated Form */}
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Your Email"
+              className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Your Phone"
+              className="w-full p-3 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
+              required
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
                  hover:scale-105 transition-transform duration-300 
                  text-black rounded-xl shadow-lg disabled:opacity-50"
-    >
-      {loading ? "Submitting..." : "📖 Request E-Brochure"}
-    </button>
-  </form>
-</div>
-
-</div>
-
+            >
+              {loading ? "Submitting..." : "📖 Request E-Brochure"}
+            </button>
+          </form>
+        </div>
+      </div>
     </section>
   );
 };
