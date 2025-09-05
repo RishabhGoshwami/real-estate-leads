@@ -5,77 +5,39 @@ import property6 from "../assets/background_01.jpg";
 import property7 from "../assets/slider_background_01.jpg";
 
 const HeroBanner = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  // 🔑 CRM authentication key
-  const authKey = "VndsbUlpKzhKdWpEbEZNSUNva2t1UT09";
 
   // 🔹 Slider images
   const images = [property6, property7];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
+    const interval = setInterval(() => setCurrentIndex((prev) => (prev + 1) % images.length), 5000);
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // ✅ CRM API POST request
+  // ✅ Backend Proxy POST request
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const apiUrl = "https://app.propertyexpertrealtors.com/api/getRecords.php";
-
-    const params = new URLSearchParams();
-    params.append("authentication_key", authKey);
-    params.append("leads_full_name", formData.name);
-    params.append("leads_phone_number", formData.phone);
-    params.append("leads_alternate_phone", "");
-    params.append("leads_email_id", formData.email);
-    params.append("leads_gender", "");
-    params.append("leads_type", "LEAD");
-    params.append("leads_source", "Nirala Gateway");
-    params.append("leads_re_source", "www.niralaworld.org");
-    params.append("leads_entry_type", "Website");
-    params.append("leads_projects_name", "Nirala Gateway");
-    params.append("leads_remarks", "");
-    params.append("leads_date_of_birth", "");
-    params.append("budgets", "");
-    params.append("location", "");
-    params.append("duration", "");
-    params.append("property_type", "");
-    params.append("tags", "");
+    const backendUrl = "https://real-estate-leads2.onrender.com/submit-lead";
 
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(backendUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params.toString(),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
-      const text = await response.text();
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch {
-        result = { success: false, message: text };
-      }
+      const result = await response.json();
+      console.log("📩 Backend Response:", result);
 
-      console.log("📩 API Response:", result);
-
-      if (result.success || result.status === "success") {
+      if (result.success) {
         setFormData({ name: "", email: "", phone: "" });
         navigate("/thank-you");
       } else {
