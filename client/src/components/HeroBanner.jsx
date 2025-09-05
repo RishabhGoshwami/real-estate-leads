@@ -36,50 +36,66 @@ const HeroBanner = () => {
   };
 
   // ✅ Direct CRM API call
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    // ✅ API URL in one clean line (no extra spaces/newlines)
-    const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}&leads_full_name=${encodeURIComponent(
-      formData.name
-    )}&leads_phone_number=${encodeURIComponent(
-      formData.phone
-    )}&leads_alternate_phone=&leads_email_id=${encodeURIComponent(
-      formData.email
-    )}&leads_gender=&leads_type=LEAD&leads_source=${encodeURIComponent(
-      "Nirala Gateway"
-    )}&leads_re_source=${encodeURIComponent(
-      "www.niralaworld.org"
-    )}&leads_entry_type=Website&leads_projects_name=${encodeURIComponent(
-      "Nirala Gateway"
-    )}&leads_remarks=&leads_date_of_birth=&budgets=&location=&duration=&property_type=&tags=`;
+  const apiUrl = "https://app.propertyexpertrealtors.com/api/getRecords.php";
 
+  // 🔹 Parameters to send in body
+  const params = new URLSearchParams();
+  params.append("authentication_key", authKey);
+  params.append("leads_full_name", formData.name);
+  params.append("leads_phone_number", formData.phone);
+  params.append("leads_alternate_phone", "");
+  params.append("leads_email_id", formData.email);
+  params.append("leads_gender", "");
+  params.append("leads_type", "LEAD");
+  params.append("leads_source", "Nirala Gateway");
+  params.append("leads_re_source", "www.niralaworld.org");
+  params.append("leads_entry_type", "Website");
+  params.append("leads_projects_name", "Nirala Gateway");
+  params.append("leads_remarks", "");
+  params.append("leads_date_of_birth", "");
+  params.append("budgets", "");
+  params.append("location", "");
+  params.append("duration", "");
+  params.append("property_type", "");
+  params.append("tags", "");
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded", // ✅ PHP-friendly
+      },
+      body: params.toString(),
+    });
+
+    const text = await response.text();
+    let result;
     try {
-      const response = await fetch(apiUrl, { method: "GET" });
-
-      // Agar API text return kare (JSON nahi), safe parse
-      const text = await response.text();
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch {
-        result = { success: false, message: text };
-      }
-
-      if (result.success || result.status === "success") {
-        setFormData({ name: "", email: "", phone: "" });
-        navigate("/thank-you");
-      } else {
-        alert("❌ Error: " + (result.message || "Something went wrong"));
-      }
-    } catch (error) {
-      console.error("❌ Error submitting form:", error);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      result = JSON.parse(text);
+    } catch {
+      result = { success: false, message: text };
     }
-  };
+
+    console.log("📩 API Response:", result);
+
+    if (result.success || result.status === "success") {
+      setFormData({ name: "", email: "", phone: "" });
+      navigate("/thank-you");
+    } else {
+      alert("❌ Error: " + (result.message || "Something went wrong"));
+    }
+  } catch (error) {
+    console.error("❌ Error submitting form:", error);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section
