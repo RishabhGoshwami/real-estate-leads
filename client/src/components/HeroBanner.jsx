@@ -40,29 +40,32 @@ const HeroBanner = () => {
     e.preventDefault();
     setLoading(true);
 
-    // CRM API URL (with ALL params, even blank)
-    const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}
-      &leads_full_name=${encodeURIComponent(formData.name)}
-      &leads_phone_number=${encodeURIComponent(formData.phone)}
-      &leads_alternate_phone=
-      &leads_email_id=${encodeURIComponent(formData.email)}
-      &leads_gender=
-      &leads_type=LEAD
-      &leads_source=${encodeURIComponent("Nirala Gateway")}
-      &leads_re_source=${encodeURIComponent("www.niralaworld.org")}
-      &leads_entry_type=Website
-      &leads_projects_name=${encodeURIComponent("Nirala Gateway")}
-      &leads_remarks=
-      &leads_date_of_birth=
-      &budgets=
-      &location=
-      &duration=
-      &property_type=
-      &tags=`;
+    // ✅ API URL in one clean line (no extra spaces/newlines)
+    const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}&leads_full_name=${encodeURIComponent(
+      formData.name
+    )}&leads_phone_number=${encodeURIComponent(
+      formData.phone
+    )}&leads_alternate_phone=&leads_email_id=${encodeURIComponent(
+      formData.email
+    )}&leads_gender=&leads_type=LEAD&leads_source=${encodeURIComponent(
+      "Nirala Gateway"
+    )}&leads_re_source=${encodeURIComponent(
+      "www.niralaworld.org"
+    )}&leads_entry_type=Website&leads_projects_name=${encodeURIComponent(
+      "Nirala Gateway"
+    )}&leads_remarks=&leads_date_of_birth=&budgets=&location=&duration=&property_type=&tags=`;
 
     try {
       const response = await fetch(apiUrl, { method: "GET" });
-      const result = await response.json();
+
+      // Agar API text return kare (JSON nahi), safe parse
+      const text = await response.text();
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch {
+        result = { success: false, message: text };
+      }
 
       if (result.success || result.status === "success") {
         setFormData({ name: "", email: "", phone: "" });
@@ -79,7 +82,10 @@ const HeroBanner = () => {
   };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden" aria-label="Nirala World Hero Banner">
+    <section
+      className="relative w-full h-screen overflow-hidden"
+      aria-label="Nirala World Hero Banner"
+    >
       {/* Background Images (Sliding) */}
       {images.map((img, index) => (
         <img
@@ -113,8 +119,12 @@ const HeroBanner = () => {
             1 RK Studio Apartment
           </h2>
 
-          <p className="text-lg text-yellow-300 font-bold mb-2">₹ 65 L - 1.2 Cr</p>
-          <p className="text-sm text-white mb-1">📍 Sector-12, Greater Noida West</p>
+          <p className="text-lg text-yellow-300 font-bold mb-2">
+            ₹ 65 L - 1.2 Cr
+          </p>
+          <p className="text-sm text-white mb-1">
+            📍 Sector-12, Greater Noida West
+          </p>
           <p className="text-sm text-white mb-1">🏗 Completion: Apr, 2030</p>
           <p className="text-sm text-black font-bold bg-green-400 px-3 py-1 rounded-full inline-block mb-4">
             ✅ RERA Approved: UPRERAPRJ531916
@@ -122,11 +132,15 @@ const HeroBanner = () => {
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 justify-center mb-6">
-            <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">NEW LAUNCH</span>
+            <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">
+              NEW LAUNCH
+            </span>
             <span className="px-3 py-1 bg-blue-300 text-black text-xs font-semibold rounded-full">
               High Price Appreciation
             </span>
-            <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">Units of Choice</span>
+            <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">
+              Units of Choice
+            </span>
             <span className="px-3 py-1 bg-purple-300 text-black text-xs font-semibold rounded-full">
               Easy Payment Plans
             </span>
