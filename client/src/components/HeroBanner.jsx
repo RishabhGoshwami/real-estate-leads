@@ -35,21 +35,30 @@ const HeroBanner = () => {
     });
   };
 
-  // ✅ Direct CRM API call (no meta fetch)
+  // ✅ Direct CRM API call
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // CRM API URL
+    // CRM API URL (with ALL params, even blank)
     const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}
       &leads_full_name=${encodeURIComponent(formData.name)}
       &leads_phone_number=${encodeURIComponent(formData.phone)}
+      &leads_alternate_phone=
       &leads_email_id=${encodeURIComponent(formData.email)}
+      &leads_gender=
       &leads_type=LEAD
       &leads_source=${encodeURIComponent("Nirala Gateway")}
       &leads_re_source=${encodeURIComponent("www.niralaworld.org")}
+      &leads_entry_type=Website
       &leads_projects_name=${encodeURIComponent("Nirala Gateway")}
-      &leads_entry_type=Website`;
+      &leads_remarks=
+      &leads_date_of_birth=
+      &budgets=
+      &location=
+      &duration=
+      &property_type=
+      &tags=`;
 
     try {
       const response = await fetch(apiUrl, { method: "GET" });
