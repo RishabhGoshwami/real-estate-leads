@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { FaPhone } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png"; // ✅ import logo from assets
+import logo from "../assets/logo.png";
 
 const navLinks = [
   { name: "Home", id: "home", href: "/" },
@@ -15,22 +15,25 @@ const navLinks = [
 
 const Navbar = ({ openForm }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeHash, setActiveHash] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    setActiveHash(location.hash);
+  }, [location]);
+
   const handleClick = (link) => {
     if (link.id === "brochure") {
-      openForm(); // ✅ open form directly
+      openForm();
     } else if (link.id === "home") {
       navigate("/");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      navigate(`/#${link.id}`); // ✅ URL me hash update
+      navigate(`/#${link.id}`);
       setTimeout(() => {
         const element = document.getElementById(link.id);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        if (element) element.scrollIntoView({ behavior: "smooth" });
       }, 100);
     }
     setIsMobileMenuOpen(false);
@@ -38,7 +41,7 @@ const Navbar = ({ openForm }) => {
 
   return (
     <nav className="bg-gray-900 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-3 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <h1 className="sr-only">Nirala World</h1>
@@ -50,21 +53,17 @@ const Navbar = ({ openForm }) => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center">
           {navLinks.map((link, idx) => (
-            <a
+            <button
               key={idx}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick(link);
-              }}
-              className={`text-gray-200 hover:text-green-400 font-medium transition ${
-                location.hash === `#${link.id}`
+              onClick={() => handleClick(link)}
+              className={`font-medium transition ${
+                activeHash === `#${link.id}` || (link.id === "home" && activeHash === "")
                   ? "text-green-400 font-bold"
-                  : ""
+                  : "text-gray-200 hover:text-green-400"
               }`}
             >
               {link.name}
-            </a>
+            </button>
           ))}
 
           {/* Call button */}
@@ -77,11 +76,11 @@ const Navbar = ({ openForm }) => {
           </a>
         </div>
 
-        {/* Mobile Menu Hamburger */}
+        {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center space-x-4">
           <a
             href="tel:+919990989295"
-            className="bg-green-600 text-white p-2 rounded-full md:hidden"
+            className="bg-green-600 text-white p-2 rounded-full"
             aria-label="Call us now"
           >
             <FaPhone size={18} />
@@ -97,23 +96,25 @@ const Navbar = ({ openForm }) => {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-2 bg-gray-800 border-t border-gray-700">
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ${
+          isMobileMenuOpen ? "max-h-screen pb-4" : "max-h-0"
+        } bg-gray-800 border-t border-gray-700`}
+      >
+        <div className="flex flex-col px-4 space-y-2">
           {navLinks.map((link, idx) => (
-            <a
+            <button
               key={idx}
-              href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick(link);
-              }}
-              className="block w-full text-left text-gray-200 hover:text-green-400 transition py-2 px-3 rounded-lg"
+              onClick={() => handleClick(link)}
+              className={`w-full text-left py-2 px-3 rounded-lg transition ${
+                activeHash === `#${link.id}` ? "text-green-400 font-bold" : "text-gray-200 hover:text-green-400"
+              }`}
             >
               {link.name}
-            </a>
+            </button>
           ))}
         </div>
-      )}
+      </div>
     </nav>
   );
 };

@@ -11,54 +11,47 @@ const PopupForm = ({ isOpen, onClose, onSuccess }) => {
 
   if (!isOpen) return null;
 
-  // ✅ Web3Forms Submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!captchaToken) {
-      alert("⚠️ Please complete the CAPTCHA!");
-      return;
+  if (!captchaToken) {
+    alert("⚠️ Please complete the CAPTCHA!");
+    return;
+  }
+
+  setLoading(true);
+
+  const backendUrl = "https://real-estate-leads2.onrender.com/submit-lead"; // ✅ Your backend proxy
+
+  try {
+    const response = await fetch(backendUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone: mobile, budget, captchaToken }),
+    });
+
+    const result = await response.json();
+    console.log("📩 Backend Response:", result);
+
+    if (result.success) {
+      if (onSuccess) onSuccess();
+      setName("");
+      setEmail("");
+      setMobile("");
+      setBudget("");
+      setCaptchaToken(null);
+      onClose(); // popup close
+    } else {
+      alert("❌ Error: " + (result.message || "Something went wrong"));
     }
-
-    setLoading(true);
-
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Your Web3Forms Key
-          name: name,
-          email: email,
-          phone: mobile,
-          budget: budget,
-          captcha_token: captchaToken,
-          message: "Popup Lead from Nirala Gateway Website",
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        if (onSuccess) onSuccess();
-        setName("");
-        setEmail("");
-        setMobile("");
-        setBudget("");
-        setCaptchaToken(null);
-      } else {
-        alert("❌ Error: " + (result.message || "Something went wrong"));
-      }
-    } catch (err) {
-      console.error("❌ Error submitting form:", err);
-      alert("Failed to submit lead!");
-    }
-
+  } catch (err) {
+    console.error("❌ Error submitting form:", err);
+    alert("Failed to submit lead!");
+  } finally {
     setLoading(false);
-  };
+  }
+};
+
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
