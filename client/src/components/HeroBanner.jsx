@@ -2,10 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import property6 from "../assets/background_01.jpg";
-import property7 from "../assets/slider_background_01.jpg"; // ✅ New Image
+import property7 from "../assets/slider_background_01.jpg";
 
 const HeroBanner = () => {
-  // 🔹 Form state
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,15 +21,13 @@ const HeroBanner = () => {
   const images = [property6, property7];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 🔹 Auto slide effect (every 5 sec)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 5000); // 5 sec
+    }, 5000);
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // 🔹 Input change handler
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -38,45 +35,45 @@ const HeroBanner = () => {
     });
   };
 
-  // 🔹 Submit handler (CRM integration)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // ✅ Direct CRM API call (no meta fetch)
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    // ✅ CRM API URL (with source, re-source, project)
-    const apiUrl = `https://app.propertyexpertrealtors.com/api/getRecords.php?authentication_key=${authKey}
-      &leads_full_name=${encodeURIComponent(formData.name)}
-      &leads_phone_number=${encodeURIComponent(formData.phone)}
-      &leads_email_id=${encodeURIComponent(formData.email)}
-      &leads_type=LEAD
-      &leads_source=${encodeURIComponent("Nirala Gateway")}
-      &leads_re_source=${encodeURIComponent("www.niralaworld.org")}
-      &leads_projects_name=${encodeURIComponent("Nirala Gateway")}
-      &leads_entry_type=Website`;
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Your API Key
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: "Lead from Nirala Gateway Website", // extra field
+      }),
+    });
 
-    try {
-      const response = await fetch(apiUrl, { method: "GET" });
-      const result = await response.json();
+    const result = await response.json();
 
-      if (result.success || result.status === "success") {
-        setFormData({ name: "", email: "", phone: "" });
-        navigate("/thank-you");
-      } else {
-        alert("❌ Error: " + (result.message || "Something went wrong"));
-      }
-    } catch (error) {
-      console.error("❌ Error submitting form:", error);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      setFormData({ name: "", email: "", phone: "" });
+      navigate("/thank-you"); // ✅ redirect
+    } else {
+      alert("❌ Error: " + (result.message || "Something went wrong"));
     }
-  };
+  } catch (error) {
+    console.error("❌ Error submitting form:", error);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
-    <section
-      className="relative w-full h-screen overflow-hidden"
-      aria-label="Nirala World Hero Banner"
-    >
+    <section className="relative w-full h-screen overflow-hidden" aria-label="Nirala World Hero Banner">
       {/* Background Images (Sliding) */}
       {images.map((img, index) => (
         <img
@@ -94,14 +91,13 @@ const HeroBanner = () => {
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
         {/* Title */}
-        <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)] mb-2">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-2 drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)]">
           <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent">
             Nirala Gateway
           </span>
         </h1>
 
-        <p className="text-lg md:text-2xl font-semibold text-white tracking-wide 
-               inline-block pt-2 mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        <p className="text-lg md:text-2xl font-semibold text-white tracking-wide pt-2 mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           Best Investment Opportunity
         </p>
 
@@ -120,21 +116,17 @@ const HeroBanner = () => {
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 justify-center mb-6">
-            <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">
-              NEW LAUNCH
-            </span>
+            <span className="px-3 py-1 bg-yellow-300 text-black text-xs font-semibold rounded-full">NEW LAUNCH</span>
             <span className="px-3 py-1 bg-blue-300 text-black text-xs font-semibold rounded-full">
               High Price Appreciation
             </span>
-            <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">
-              Units of Choice
-            </span>
+            <span className="px-3 py-1 bg-green-300 text-black text-xs font-semibold rounded-full">Units of Choice</span>
             <span className="px-3 py-1 bg-purple-300 text-black text-xs font-semibold rounded-full">
               Easy Payment Plans
             </span>
           </div>
 
-          {/* ✅ CRM Integrated Form */}
+          {/* CRM Integrated Form */}
           <form onSubmit={handleSubmit} className="space-y-3">
             <input
               type="text"
@@ -166,9 +158,7 @@ const HeroBanner = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 
-                 hover:scale-105 transition-transform duration-300 
-                 text-black rounded-xl shadow-lg disabled:opacity-50"
+              className="w-full px-6 py-3 text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-500 hover:scale-105 transition-transform duration-300 text-black rounded-xl shadow-lg disabled:opacity-50"
             >
               {loading ? "Submitting..." : "📖 Request E-Brochure"}
             </button>
