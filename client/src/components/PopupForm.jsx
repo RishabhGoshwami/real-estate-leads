@@ -21,7 +21,7 @@ const handleSubmit = async (e) => {
 
   setLoading(true);
 
-  const backendUrl = "https://real-estate-leads2.onrender.com/submit-lead"; // ✅ Your backend proxy
+  const backendUrl = "https://real-estate-leads2.onrender.com/api/submit-lead"; // ✅ Your backend proxy
 
   try {
     const response = await fetch(backendUrl, {

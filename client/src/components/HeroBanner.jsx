@@ -31,7 +31,8 @@ const HeroBanner = () => {
       return;
     }
 
-    const backendUrl = "https://real-estate-leads2.onrender.com/submit-lead";
+    const backendUrl = "https://real-estate-leads2.onrender.com/api/submit-lead";
+
 
     try {
       const response = await fetch(backendUrl, {
