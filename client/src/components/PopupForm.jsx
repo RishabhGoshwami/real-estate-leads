@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate } from "react-router-dom";
 
 const PopupForm = ({ isOpen, onClose, onSuccess }) => {
   const [name, setName] = useState("");
@@ -7,51 +7,44 @@ const PopupForm = ({ isOpen, onClose, onSuccess }) => {
   const [mobile, setMobile] = useState("");
   const [budget, setBudget] = useState("");
   const [loading, setLoading] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState(null);
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  if (!captchaToken) {
-    alert("⚠️ Please complete the CAPTCHA!");
-    return;
-  }
+    const backendUrl = "https://real-estate-leads2.onrender.com/api/submit-lead";
 
-  setLoading(true);
+    try {
+      const response = await fetch(backendUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone: mobile, budget }),
+      });
 
-  const backendUrl = "https://real-estate-leads2.onrender.com/api/submit-lead"; // ✅ Your backend proxy
+      const result = await response.json();
+      console.log("📩 Backend Response:", result);
 
-  try {
-    const response = await fetch(backendUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone: mobile, budget, captchaToken }),
-    });
-
-    const result = await response.json();
-    console.log("📩 Backend Response:", result);
-
-    if (result.success) {
-      if (onSuccess) onSuccess();
-      setName("");
-      setEmail("");
-      setMobile("");
-      setBudget("");
-      setCaptchaToken(null);
-      onClose(); // popup close
-    } else {
-      alert("❌ Error: " + (result.message || "Something went wrong"));
+      if (result.success) {
+        if (onSuccess) onSuccess();
+        setName("");
+        setEmail("");
+        setMobile("");
+        setBudget("");
+        onClose(); // popup close
+        navigate("/thank-you"); // ✅ success पर redirect
+      } else {
+        alert("❌ Error: " + (result.message || "Something went wrong"));
+      }
+    } catch (err) {
+      console.error("❌ Error submitting form:", err);
+      alert("Failed to submit lead!");
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.error("❌ Error submitting form:", err);
-    alert("Failed to submit lead!");
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center p-4">
@@ -109,12 +102,6 @@ const handleSubmit = async (e) => {
             <option value="95-1 Cr">₹96 L - ₹1 Cr</option>
             <option value="Above 1 Cr">Above ₹1 Cr</option>
           </select>
-
-          {/* reCAPTCHA */}
-          <ReCAPTCHA
-            sitekey="6LdFqr4rAAAAANZ2E34czuNTdFJXSoBQXhKLQwYT"
-            onChange={(token) => setCaptchaToken(token)}
-          />
 
           <p className="text-xs text-gray-500">
             By submitting this form, you agree to receive communication from our

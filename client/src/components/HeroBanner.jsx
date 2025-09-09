@@ -1,44 +1,40 @@
 // src/components/HeroBanner.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ReCAPTCHA from "react-google-recaptcha";
 import property6 from "../assets/background_01.jpg";
 import property7 from "../assets/slider_background_01.jpg";
 
 const HeroBanner = () => {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [loading, setLoading] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState(null);
   const navigate = useNavigate();
 
   const images = [property6, property7];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => setCurrentIndex((prev) => (prev + 1) % images.length), 5000);
+    const interval = setInterval(
+      () => setCurrentIndex((prev) => (prev + 1) % images.length),
+      5000
+    );
     return () => clearInterval(interval);
   }, [images.length]);
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!captchaToken) {
-      alert("⚠️ Please complete the CAPTCHA!");
-      setLoading(false);
-      return;
-    }
-
-    const backendUrl = "https://real-estate-leads2.onrender.com/api/submit-lead";
-
+    const backendUrl =
+      "https://real-estate-leads2.onrender.com/api/submit-lead";
 
     try {
       const response = await fetch(backendUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, captchaToken }),
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
@@ -46,7 +42,6 @@ const HeroBanner = () => {
 
       if (result.success) {
         setFormData({ name: "", email: "", phone: "" });
-        setCaptchaToken(null);
         navigate("/thank-you");
       } else {
         alert("❌ Error: " + (result.message || "Something went wrong"));
@@ -61,7 +56,7 @@ const HeroBanner = () => {
 
   return (
     <section
-      className="relative w-full min-h-screen overflow-auto" // min-h-screen + scrollable
+      className="relative w-full min-h-screen overflow-auto"
       aria-label="Nirala World Hero Banner"
     >
       {/* Background Slider */}
@@ -93,19 +88,35 @@ const HeroBanner = () => {
 
         {/* Form Container */}
         <div className="bg-black/40 shadow-2xl rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 max-w-md sm:max-w-lg w-full border border-white/30 overflow-auto max-h-[85vh]">
-          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">1 RK Studio Apartment</h2>
-          <p className="text-md sm:text-lg md:text-xl text-yellow-300 font-bold mb-2">₹ 65 L - 1.2 Cr</p>
-          <p className="text-sm sm:text-base text-white mb-1">📍 Sector-12, Greater Noida West</p>
-          <p className="text-sm sm:text-base text-white mb-1">🏗 Completion: Apr, 2030</p>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
+            1 RK Studio Apartment
+          </h2>
+          <p className="text-md sm:text-lg md:text-xl text-yellow-300 font-bold mb-2">
+            ₹ 65 L - 1.2 Cr
+          </p>
+          <p className="text-sm sm:text-base text-white mb-1">
+            📍 Sector-12, Greater Noida West
+          </p>
+          <p className="text-sm sm:text-base text-white mb-1">
+            🏗 Completion: Apr, 2030
+          </p>
           <p className="text-xs sm:text-sm text-black font-bold bg-green-400 px-2 py-1 rounded-full inline-block mb-4">
             ✅ RERA Approved: UPRERAPRJ531916
           </p>
 
           <div className="flex flex-wrap gap-2 justify-center mb-4">
-            <span className="px-2 py-1 bg-yellow-300 text-black text-xs sm:text-sm font-semibold rounded-full">NEW LAUNCH</span>
-            <span className="px-2 py-1 bg-blue-300 text-black text-xs sm:text-sm font-semibold rounded-full">High Price Appreciation</span>
-            <span className="px-2 py-1 bg-green-300 text-black text-xs sm:text-sm font-semibold rounded-full">Units of Choice</span>
-            <span className="px-2 py-1 bg-purple-300 text-black text-xs sm:text-sm font-semibold rounded-full">Easy Payment Plans</span>
+            <span className="px-2 py-1 bg-yellow-300 text-black text-xs sm:text-sm font-semibold rounded-full">
+              NEW LAUNCH
+            </span>
+            <span className="px-2 py-1 bg-blue-300 text-black text-xs sm:text-sm font-semibold rounded-full">
+              High Price Appreciation
+            </span>
+            <span className="px-2 py-1 bg-green-300 text-black text-xs sm:text-sm font-semibold rounded-full">
+              Units of Choice
+            </span>
+            <span className="px-2 py-1 bg-purple-300 text-black text-xs sm:text-sm font-semibold rounded-full">
+              Easy Payment Plans
+            </span>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-3">
@@ -136,13 +147,6 @@ const HeroBanner = () => {
               className="w-full p-3 sm:p-4 border border-white/50 rounded-lg focus:ring-2 focus:ring-yellow-400 bg-transparent text-white placeholder-white"
               required
             />
-
-            <div className="flex justify-center">
-              <ReCAPTCHA
-                sitekey="6LdFqr4rAAAAANZ2E34czuNTdFJXSoBQXhKLQwYT"
-                onChange={(token) => setCaptchaToken(token)}
-              />
-            </div>
 
             <button
               type="submit"

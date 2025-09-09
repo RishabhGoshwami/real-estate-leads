@@ -1,5 +1,6 @@
+// src/App.jsx
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom"; // ✅ No BrowserRouter here
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import HeroBanner from "./components/HeroBanner";
@@ -15,8 +16,9 @@ import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
-import ThankYou from "./components/ThankYou";
+import ThankYou from "./pages/ThankYou";   // ✅ Page route se import
 import Disclaimer from "./components/Disclaimer";
+
 // 🔹 HomePage component (all sections together)
 const HomePage = ({ openForm }) => (
   <>
@@ -43,7 +45,7 @@ function App() {
   const handleCloseForm = () => setFormType(null);
 
   return (
-    <>
+    <Router>
       {/* Global Popup Form */}
       <PopupForm
         isOpen={!!formType}
@@ -58,7 +60,7 @@ function App() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
       </Routes>
-    </>
+    </Router>
   );
 }
 
