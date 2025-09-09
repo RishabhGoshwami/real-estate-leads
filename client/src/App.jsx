@@ -16,7 +16,7 @@ import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
-import ThankYou from "./pages/ThankYou";   // ✅ Page route se import
+import ThankYou from "./components/ThankYou";   // ✅ Page route se import
 import Disclaimer from "./components/Disclaimer";
 
 // 🔹 HomePage component (all sections together)
