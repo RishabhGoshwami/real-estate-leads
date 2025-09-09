@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import HeroBanner from "./components/HeroBanner";
@@ -45,7 +45,7 @@ function App() {
   const handleCloseForm = () => setFormType(null);
 
   return (
-    <Router>
+    <>
       {/* Global Popup Form */}
       <PopupForm
         isOpen={!!formType}
@@ -60,7 +60,7 @@ function App() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
