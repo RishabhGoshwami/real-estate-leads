@@ -89,7 +89,9 @@ const HeroBanner = () => {
         {/* Form Container */}
         <div className="bg-black/40 shadow-2xl rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 max-w-md sm:max-w-lg w-full border border-white/30 overflow-auto max-h-[85vh]">
           <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
-            1 RK Studio Apartment
+            Retail spaces, <span className="text-green-400">fine dining</span>, modern{" "}
+            <span className="text-green-400">offices</span>, and{" "}
+            <span className="text-green-400">studio apartments</span>
           </h2>
           <p className="text-md sm:text-lg md:text-xl text-yellow-300 font-bold mb-2">
             ₹ 65 L - 1.2 Cr
