@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-const AutoPopupForm = () => {
+const AutoPopupForm = ({ projectName = "Nirala Gateway" }) => {
   const [showPopup, setShowPopup] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [loading, setLoading] = useState(false);
 
   // Auto open after 3 seconds
@@ -18,47 +18,46 @@ const AutoPopupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.phone) {
-      alert("⚠️ Please enter your Name and Phone Number.");
+    if (!formData.name || !formData.phone || !formData.email) {
+      alert("⚠️ Please enter Name, Email and Phone Number.");
       return;
     }
 
     setLoading(true);
 
     try {
-      const backendUrl =
-        "https://real-estate-leads2.onrender.com/api/submit-lead";
-
-      const response = await fetch(backendUrl, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81",
           name: formData.name,
+          email: formData.email,
           phone: formData.phone,
-          email: "", // optional CRM field
-          budget: "", // optional CRM field
-          source: "AutoPopup", // ✅ taaki pata chale ki lead auto popup se aayi hai
+          project: projectName, // ✅ include project detail
+          message: `Lead from Auto Popup Form for ${projectName}`,
+          redirect: "", // optional: redirect after submission
         }),
       });
 
       const result = await response.json();
-      console.log("📩 AutoPopup Backend Response:", result);
+      console.log("📩 Web3Forms Response:", result);
 
       if (result.success) {
         alert("✅ Thank you! Brochure will be downloaded.");
-        setFormData({ name: "", phone: "" });
+        setFormData({ name: "", email: "", phone: "" });
         setShowPopup(false);
 
         // Trigger brochure download
         const link = document.createElement("a");
-        link.href = "/assets/Nirala Gateway_99acres.pdf"; // ✅ apna pdf path
-        link.download = "NiralaGateway-Brochure.pdf";
+        link.href = "/assets/Nirala Gateway_99acres.pdf"; // ✅ PDF path
+        link.download = `${projectName}-Brochure.pdf`;
         link.click();
       } else {
         alert("❌ Error: " + (result.message || "Something went wrong"));
       }
     } catch (err) {
-      console.error("❌ Error submitting auto popup form:", err);
+      console.error("❌ Error submitting Web3Forms:", err);
       alert("Failed to submit details!");
     } finally {
       setLoading(false);
@@ -83,9 +82,10 @@ const AutoPopupForm = () => {
           Download Brochure
         </h2>
         <p className="text-sm text-center text-gray-600 mb-6 italic">
-          Just fill your <span className="font-semibold">Name</span> and{" "}
+          Just fill your <span className="font-semibold">Name</span>,{" "}
+          <span className="font-semibold">Email</span> and{" "}
           <span className="font-semibold">Phone Number</span> to access the
-          Nirala Gateway brochure instantly.
+          {projectName} brochure instantly.
         </p>
 
         {/* Form */}
@@ -95,6 +95,14 @@ const AutoPopupForm = () => {
             name="name"
             placeholder="Enter your Name"
             value={formData.name}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your Email"
+            value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
           />

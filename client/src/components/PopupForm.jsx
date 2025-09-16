@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const PopupForm = ({ isOpen, onClose, onSuccess }) => {
+const PopupForm = ({ isOpen, onClose, onSuccess, projectName = "Nirala Gateway" }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -15,17 +15,24 @@ const PopupForm = ({ isOpen, onClose, onSuccess }) => {
     e.preventDefault();
     setLoading(true);
 
-    const backendUrl = "https://real-estate-leads2.onrender.com/api/submit-lead";
-
     try {
-      const response = await fetch(backendUrl, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone: mobile, budget }),
+        body: JSON.stringify({
+          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81",
+          name,
+          email,
+          phone: mobile,
+          budget,
+          project: projectName, // ✅ project detail included
+          message: `Lead from Popup Form for ${projectName}`,
+          redirect: "", // optional redirect
+        }),
       });
 
       const result = await response.json();
-      console.log("📩 Backend Response:", result);
+      console.log("📩 Web3Forms Response:", result);
 
       if (result.success) {
         if (onSuccess) onSuccess();
@@ -33,13 +40,13 @@ const PopupForm = ({ isOpen, onClose, onSuccess }) => {
         setEmail("");
         setMobile("");
         setBudget("");
-        onClose(); // popup close
-        navigate("/thank-you"); // ✅ success पर redirect
+        onClose(); // close popup
+        navigate("/thank-you"); // ✅ success redirect
       } else {
         alert("❌ Error: " + (result.message || "Something went wrong"));
       }
     } catch (err) {
-      console.error("❌ Error submitting form:", err);
+      console.error("❌ Error submitting Web3Forms:", err);
       alert("Failed to submit lead!");
     } finally {
       setLoading(false);
@@ -56,7 +63,7 @@ const PopupForm = ({ isOpen, onClose, onSuccess }) => {
           ✕
         </button>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Interested to know more about Nirala Gateway?
+          Interested to know more about {projectName}?
         </h2>
         <p className="text-sm text-gray-600 mb-6">
           Fill in your details below and our sales team will get in touch with

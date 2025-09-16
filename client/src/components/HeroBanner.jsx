@@ -27,18 +27,23 @@ const HeroBanner = () => {
     e.preventDefault();
     setLoading(true);
 
-    const backendUrl =
-      "https://real-estate-leads2.onrender.com/api/submit-lead";
-
     try {
-      const response = await fetch(backendUrl, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Web3Forms key
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          project: "Nirala Gateway", // ✅ project detail
+          message: "Lead from HeroBanner form for Nirala Gateway",
+          redirect: "", // optional redirect
+        }),
       });
 
       const result = await response.json();
-      console.log("📩 Backend Response:", result);
+      console.log("📩 Web3Forms Response:", result);
 
       if (result.success) {
         setFormData({ name: "", email: "", phone: "" });
@@ -47,7 +52,7 @@ const HeroBanner = () => {
         alert("❌ Error: " + (result.message || "Something went wrong"));
       }
     } catch (error) {
-      console.error("❌ Error submitting form:", error);
+      console.error("❌ Error submitting Web3Forms:", error);
       alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
