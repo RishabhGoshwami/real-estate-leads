@@ -1,5 +1,5 @@
 // src/App.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -10,16 +10,16 @@ import FloorPlanSection from "./components/FloorPlanSection";
 import DownloadSection from "./components/DownloadSection";
 import Footer from "./components/Footer";
 import PopupForm from "./components/PopupForm";
+import AutoPopupForm from "./components/AutoPopupForm";   // ✅ import auto popup form
 import FloatingButtons from "./components/FloatingButtons";
 import Gateway from "./components/Gateway";
 import LocationDetails from "./components/LocationDetails";
 import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
-import ThankYou from "./components/ThankYou";   // ✅ Page route se import
+import ThankYou from "./components/ThankYou";
 import Disclaimer from "./components/Disclaimer";
 
-// 🔹 HomePage component (all sections together)
 const HomePage = ({ openForm }) => (
   <>
     <Navbar openForm={() => openForm("contact")} />
@@ -40,18 +40,32 @@ const HomePage = ({ openForm }) => (
 
 function App() {
   const [formType, setFormType] = useState(null);
+  const [autoPopupOpen, setAutoPopupOpen] = useState(false);
 
   const handleOpenForm = (type) => setFormType(type);
   const handleCloseForm = () => setFormType(null);
 
+  // 🔹 Auto Popup on page load (sirf 1 baar)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAutoPopupOpen(true);
+    }, 2000); // 2 second baad auto open hoga
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
-      {/* Global Popup Form */}
+      {/* Manual Popup Form */}
       <PopupForm
         isOpen={!!formType}
         type={formType}
         onClose={handleCloseForm}
-        triggerAutoPopup={() => handleOpenForm("auto")}
+      />
+
+      {/* Auto Popup Form */}
+      <AutoPopupForm
+        isOpen={autoPopupOpen}
+        onClose={() => setAutoPopupOpen(false)}
       />
 
       {/* Routes */}

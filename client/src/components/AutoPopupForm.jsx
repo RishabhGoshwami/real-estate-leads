@@ -1,113 +1,125 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const AutoPopupForm = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", number: "" });
+  const [showPopup, setShowPopup] = useState(false);
+  const [formData, setFormData] = useState({ name: "", phone: "" });
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
-
-  // Auto open after 5 sec
+  // Auto open after 3 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setIsOpen(true), 5000);
+    const timer = setTimeout(() => setShowPopup(true), 3000);
     return () => clearTimeout(timer);
   }, []);
 
-  const closePopup = () => setIsOpen(false);
-
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    const data = new FormData();
-    data.append("access_key", "d5f504e4-3e5a-4dda-8255-62123d25fe81"); // 🔑 Web3Forms API Key
-    data.append("name", formData.name);
-    data.append("number", formData.number);
-
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: data,
-      });
-
-      const result = await res.json();
-      if (result.success) {
-        setFormData({ name: "", number: "" });
-        setIsOpen(false); // ✅ band kar de
-        navigate("/thank-you"); // ✅ redirect
-      } else {
-        alert("❌ Error: " + result.message);
-      }
-    } catch (err) {
-      alert("⚠️ Something went wrong!");
+    if (!formData.name || !formData.phone) {
+      alert("⚠️ Please enter your Name and Phone Number.");
+      return;
     }
 
-    setLoading(false);
+    setLoading(true);
+
+    try {
+      const backendUrl =
+        "https://real-estate-leads2.onrender.com/api/submit-lead";
+
+      const response = await fetch(backendUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: "", // optional CRM field
+          budget: "", // optional CRM field
+          source: "AutoPopup", // ✅ taaki pata chale ki lead auto popup se aayi hai
+        }),
+      });
+
+      const result = await response.json();
+      console.log("📩 AutoPopup Backend Response:", result);
+
+      if (result.success) {
+        alert("✅ Thank you! Brochure will be downloaded.");
+        setFormData({ name: "", phone: "" });
+        setShowPopup(false);
+
+        // Trigger brochure download
+        const link = document.createElement("a");
+        link.href = "/assets/Nirala Gateway_99acres.pdf"; // ✅ apna pdf path
+        link.download = "NiralaGateway-Brochure.pdf";
+        link.click();
+      } else {
+        alert("❌ Error: " + (result.message || "Something went wrong"));
+      }
+    } catch (err) {
+      console.error("❌ Error submitting auto popup form:", err);
+      alert("Failed to submit details!");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (!isOpen) return null;
+  if (!showPopup) return null;
 
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-[100] bg-gray-900/75"
-      aria-modal="true"
-      role="dialog"
-    >
-      <div className="bg-white p-8 sm:p-10 rounded-2xl w-11/12 max-w-lg relative shadow-2xl">
-        {/* Close button */}
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-96 relative animate-fadeIn">
+        {/* Close Button */}
         <button
-          onClick={closePopup}
-          className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-3xl font-bold"
-          aria-label="Close form"
+          className="absolute top-3 right-3 text-gray-500 hover:text-red-500 transition"
+          onClick={() => setShowPopup(false)}
         >
-          &times;
+          ✖
         </button>
 
-        <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">
-          Nirala World Gateway
+        {/* Heading */}
+        <h2 className="text-2xl font-extrabold text-center mb-2 text-indigo-700">
+          Download Brochure
         </h2>
-        <p className="text-gray-600 mb-6 text-center text-sm sm:text-base">
-          Contact us to find your dream home.
+        <p className="text-sm text-center text-gray-600 mb-6 italic">
+          Just fill your <span className="font-semibold">Name</span> and{" "}
+          <span className="font-semibold">Phone Number</span> to access the
+          Nirala Gateway brochure instantly.
         </p>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-            id="name"
             type="text"
             name="name"
+            placeholder="Enter your Name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Your Name"
-            required
-            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
           />
           <input
-            id="number"
             type="tel"
-            name="number"
-            value={formData.number}
+            name="phone"
+            placeholder="Enter your Phone Number"
+            value={formData.phone}
             onChange={handleChange}
-            placeholder="Your Number"
-            required
-            className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-400 focus:outline-none"
           />
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition"
+            className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-transform transform hover:scale-105 disabled:opacity-50"
           >
-            {loading ? "Sending..." : "Submit"}
+            {loading ? "Submitting..." : "📥 Download Now"}
           </button>
         </form>
+
+        {/* Extra Line */}
+        <p className="text-xs text-gray-400 text-center mt-4">
+          * We respect your privacy. Your details are safe with us.
+        </p>
       </div>
     </div>
   );
