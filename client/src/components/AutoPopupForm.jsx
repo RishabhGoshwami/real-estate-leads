@@ -1,4 +1,6 @@
+// src/components/AutoPopupForm.jsx
 import React, { useState, useEffect } from "react";
+import BrochurePDF from "../assets/Nirala Gateway_99acres.pdf"; // ✅ Correct PDF import
 
 const AutoPopupForm = ({ projectName = "Nirala Gateway" }) => {
   const [showPopup, setShowPopup] = useState(false);
@@ -34,7 +36,7 @@ const AutoPopupForm = ({ projectName = "Nirala Gateway" }) => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          project: projectName, // ✅ include project detail
+          project: projectName, // include project detail
           message: `Lead from Auto Popup Form for ${projectName}`,
           redirect: "", // optional: redirect after submission
         }),
@@ -50,7 +52,7 @@ const AutoPopupForm = ({ projectName = "Nirala Gateway" }) => {
 
         // Trigger brochure download
         const link = document.createElement("a");
-        link.href = "/assets/Nirala Gateway_99acres.pdf"; // ✅ PDF path
+        link.href = BrochurePDF; // ✅ Correct PDF path
         link.download = `${projectName}-Brochure.pdf`;
         link.click();
       } else {
@@ -84,7 +86,7 @@ const AutoPopupForm = ({ projectName = "Nirala Gateway" }) => {
         <p className="text-sm text-center text-gray-600 mb-6 italic">
           Just fill your <span className="font-semibold">Name</span>,{" "}
           <span className="font-semibold">Email</span> and{" "}
-          <span className="font-semibold">Phone Number</span> to access the
+          <span className="font-semibold">Phone Number</span> to access the{" "}
           {projectName} brochure instantly.
         </p>
 
