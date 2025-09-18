@@ -7,10 +7,8 @@ const Footer = () => {
 
   const handleLinkClick = (link) => {
     if (link.id.startsWith("/")) {
-      // Route navigation
       navigate(link.id);
     } else {
-      // Scroll to section
       if (location.pathname !== "/") {
         navigate("/");
         setTimeout(() => {
@@ -104,6 +102,18 @@ const Footer = () => {
               <a href="https://youtube.com/@propertyexpertrealtors?si=CinG5e80OwYdNhSM" className="hover:text-red-500 transition"><YoutubeIcon /></a>
             </div>
           </div>
+        </div>
+
+        {/* SEO Keywords Section */}
+        <div className="text-gray-400 text-xs px-6 md:px-20 pb-6 leading-relaxed">
+          <p>
+            Looking for <strong>commercial project in Greater Noida West</strong>? 
+            Explore premium <strong>office space for sale in Greater Noida West</strong> with world-class amenities. 
+            We also offer <strong>commercial retail space for sale</strong> and 
+            <strong> commercial shops in Greater Noida West</strong> ideal for investment. 
+            Discover affordable <strong>retail shops for sale in Greater Noida West</strong> and premium 
+            <strong> commercial spaces in Greater Noida West</strong> tailored for businesses and investors.
+          </p>
         </div>
 
         {/* Disclaimer */}
