@@ -22,8 +22,32 @@ const Sector12 = () => {
     <section className="w-full bg-white py-12 px-6 lg:px-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         
-        {/* Left Content */}
-        <div>
+        {/* Left Image Slider */}
+        <div className="rounded-2xl overflow-hidden shadow-lg lg:order-1">
+          <Slider {...settings}>
+            <div>
+              <img
+                src={imgOne}
+                alt="Modern apartments and lifestyle in Sector 12 Greater Noida West"
+                className="w-full h-[350px] md:h-[420px] object-cover"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
+            <div>
+              <img
+                src={imgTwo}
+                alt="Infrastructure and residential projects in Sector 12"
+                className="w-full h-[350px] md:h-[420px] object-cover"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
+          </Slider>
+        </div>
+
+        {/* Right Content */}
+        <div className="lg:order-2">
           <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-4">
             Why Invest in Sector 12, Greater Noida West?
           </h2>
@@ -54,30 +78,6 @@ const Sector12 = () => {
             self-sustained urban hub. Its strategic growth makes it a future-ready
             location for long-term investment.
           </p>
-        </div>
-
-        {/* Right Image Slider */}
-        <div className="rounded-2xl overflow-hidden shadow-lg">
-          <Slider {...settings}>
-            <div>
-              <img
-                src={imgOne}
-                alt="Modern apartments and lifestyle in Sector 12 Greater Noida West"
-                className="w-full h-[350px] md:h-[420px] object-cover"
-                loading="lazy"
-                draggable={false}
-              />
-            </div>
-            <div>
-              <img
-                src={imgTwo}
-                alt="Infrastructure and residential projects in Sector 12"
-                className="w-full h-[350px] md:h-[420px] object-cover"
-                loading="lazy"
-                draggable={false}
-              />
-            </div>
-          </Slider>
         </div>
       </div>
     </section>

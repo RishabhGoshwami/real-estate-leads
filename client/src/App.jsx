@@ -6,15 +6,12 @@ import Navbar from "./components/Navbar";
 import HeroBanner from "./components/HeroBanner";
 import AboutSection from "./components/AboutSection";
 import LuxuryAmenities from "./components/LuxuryAmenities";
-import FloorPlanSection from "./components/FloorPlanSection";
-import DownloadSection from "./components/DownloadSection";
 import Footer from "./components/Footer";
 import PopupForm from "./components/PopupForm";
 import AutoPopupForm from "./components/AutoPopupForm";   // ✅ import auto popup form
 import FloatingButtons from "./components/FloatingButtons";
 import Gateway from "./components/Gateway";
 import LocationDetails from "./components/LocationDetails";
-import SustainabilitySection from "./components/SustainabilitySection";
 import Sector12 from "./components/Sector12";
 import GallerySection from "./components/GallerySection";
 import ThankYou from "./components/ThankYou";
@@ -25,15 +22,18 @@ const HomePage = ({ openForm }) => (
     <Navbar openForm={() => openForm("contact")} />
     <HeroBanner openForm={() => openForm("brochure")} />
     <AboutSection />
-    <DownloadSection openForm={() => openForm("brochure")} />
-    <FloorPlanSection openForm={() => openForm("floorplan")} />
+      <Sector12 />
+    
+  
     <LuxuryAmenities />
-    <Gateway />
-    <LocationDetails />
-    <SustainabilitySection />
-    <Sector12 />
+   
+  
+    
+  
     <GallerySection />
     <FloatingButtons onEnquiryClick={() => openForm("contact")} />
+       <Gateway />
+        <LocationDetails />
     <Footer />
   </>
 );

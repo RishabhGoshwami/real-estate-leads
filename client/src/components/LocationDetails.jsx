@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import backgroundImg from "../assets/background_04.jpg";
-import img1 from "../assets/inner_slider_04.jpg";
-import img2 from "../assets/inner_slider_03.jpg";
 
 const LocationDetails = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const images = [img1, img2];
+  const [formStatus, setFormStatus] = useState("");
 
-  const prevSlide = () =>
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  const nextSlide = () =>
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus("Sending...");
+
+    const formData = new FormData(e.target);
+    formData.append("access_key", "d5f504e4-3e5a-4dda-8255-62123d25fe81");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      setFormStatus("✅ Message sent successfully!");
+      e.target.reset();
+    } else {
+      setFormStatus("❌ Failed to send. Please try again.");
+    }
+  };
 
   return (
     <div
@@ -21,69 +33,61 @@ const LocationDetails = () => {
         backgroundPosition: "center",
       }}
     >
-       <div>
-            <iframe
-              title="Nirala Gateway Location"
-              className="w-full h-80 rounded-xl shadow-lg"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.786842643626!2d77.4747558!3d28.5647563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef83fed3ee85%3A0xdd9959a0e2167730!2sNirala%20Gateway!5e0!3m2!1sen!2sin!4v1692877397000!5m2!1sen!2sin"
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        {/* Left: Contact Form */}
+        <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-lg">
+          <h2 className="text-3xl font-bold mb-6">📩 Contact Us</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              required
+              className="w-full p-3 rounded-lg bg-white/80 text-black focus:outline-none"
             />
-          </div>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-6">
-        {/* Image Slider */}
-        <div className="relative w-full h-[400px] overflow-hidden rounded-2xl shadow-lg">
-          <img
-            src={images[currentIndex]}
-            alt="Location view"
-            className="w-full h-full object-cover transition-all duration-700"
-          />
-          <button
-            onClick={prevSlide}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black"
-          >
-            ❮
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black"
-          >
-            ❯
-          </button>
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+              className="w-full p-3 rounded-lg bg-white/80 text-black focus:outline-none"
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Your Phone"
+              required
+              className="w-full p-3 rounded-lg bg-white/80 text-black focus:outline-none"
+            />
+            <textarea
+              name="message"
+              rows="4"
+              placeholder="Your Message"
+              className="w-full p-3 rounded-lg bg-white/80 text-black focus:outline-none"
+            ></textarea>
+            <button
+              type="submit"
+              className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:opacity-90"
+            >
+              🚀 Send Message
+            </button>
+          </form>
+          {formStatus && (
+            <p className="mt-4 text-sm text-green-300">{formStatus}</p>
+          )}
         </div>
 
-        {/* Location Content + Map */}
-        <div className="space-y-6">
-          <h2 className="text-3xl font-bold uppercase">Location Details</h2>
-          <p className="text-lg">
-            The property enjoys outstanding accessibility and visibility, with
-            prominent frontage on all sides—ideal for retail, commercial, and
-            studio apartment development.
-          </p>
-          <ul className="space-y-2 text-lg">
-            <li>
-              <strong>PLOT AREA:</strong> 10,400 Sq.m.
-            </li>
-            <li>
-              <strong>LOCATION:</strong> C-07, Sector 12, Greater Noida West
-            </li>
-            <li>
-              <strong>ACCESS ROADS:</strong> 130 m / 80 m / 24 m wide roads
-            </li>
-          </ul>
-          <h3 className="text-2xl font-semibold">
-            Easy Access to Delhi & Surrounding Areas
-          </h3>
-          <ul className="list-disc pl-5 space-y-2">
-            <li>~10-minute drive to the upcoming Metro Station.</li>
-            <li>~15-minute drive to the Delhi-Meerut National Highway.</li>
-            <li>~40-minute drive to the upcoming Jewar Airport.</li>
-          </ul>
-
-          {/* Embedded Google Map */}
-         
+        {/* Right: Google Map */}
+        <div>
+          <iframe
+            title="Nirala Gateway Location"
+            className="w-full h-[500px] rounded-xl shadow-lg"
+            style={{ border: 0 }}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3504.786842643626!2d77.4747558!3d28.5647563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef83fed3ee85%3A0xdd9959a0e2167730!2sNirala%20Gateway!5e0!3m2!1sen!2sin!4v1692877397000!5m2!1sen!2sin"
+          />
         </div>
       </div>
     </div>

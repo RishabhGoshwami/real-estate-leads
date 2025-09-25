@@ -1,4 +1,3 @@
-// src/components/HeroBanner.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import property6 from "../assets/background_01.jpg";
@@ -32,13 +31,13 @@ const HeroBanner = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81", // ✅ Web3Forms key
+          access_key: "d5f504e4-3e5a-4dda-8255-62123d25fe81",
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          project: "Nirala Gateway", // ✅ project detail
+          project: "Nirala Gateway",
           message: "Lead from HeroBanner form for Nirala Gateway",
-          redirect: "", // optional redirect
+          redirect: "",
         }),
       });
 
@@ -80,19 +79,20 @@ const HeroBanner = () => {
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 sm:px-6 md:px-8 lg:px-16 py-10">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-2 drop-shadow-lg">
-          <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent">
-            Nirala Gateway
-          </span>
-        </h1>
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center min-h-screen text-center lg:text-left px-4 sm:px-6 md:px-8 lg:px-16 py-10 gap-10">
+        
+        {/* Left Content */}
+        <div className="lg:w-1/2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-2 drop-shadow-lg">
+            <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-500 bg-clip-text text-transparent">
+              Nirala Gateway
+            </span>
+          </h1>
 
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white tracking-wide pt-2 mb-6 drop-shadow-md">
-          Best Investment Opportunity
-        </p>
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white tracking-wide pt-2 mb-6 drop-shadow-md">
+            Best Investment Opportunity
+          </p>
 
-        {/* Form Container */}
-        <div className="bg-black/40 shadow-2xl rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 max-w-md sm:max-w-lg w-full border border-white/30 overflow-auto max-h-[85vh]">
           <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
             Retail spaces, <span className="text-green-400">fine dining</span>, modern{" "}
             <span className="text-green-400">offices</span>, and{" "}
@@ -111,21 +111,11 @@ const HeroBanner = () => {
             ✅ RERA Approved: UPRERAPRJ531916
           </p>
 
-          <div className="flex flex-wrap gap-2 justify-center mb-4">
-            <span className="px-2 py-1 bg-yellow-300 text-black text-xs sm:text-sm font-semibold rounded-full">
-              NEW LAUNCH
-            </span>
-            <span className="px-2 py-1 bg-blue-300 text-black text-xs sm:text-sm font-semibold rounded-full">
-              High Price Appreciation
-            </span>
-            <span className="px-2 py-1 bg-green-300 text-black text-xs sm:text-sm font-semibold rounded-full">
-              Units of Choice
-            </span>
-            <span className="px-2 py-1 bg-purple-300 text-black text-xs sm:text-sm font-semibold rounded-full">
-              Easy Payment Plans
-            </span>
-          </div>
+          
+        </div>
 
+        {/* Right Form */}
+        <div className="lg:w-1/2 bg-black/40 shadow-2xl rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 w-full border border-white/30 overflow-auto max-h-[85vh]">
           <form onSubmit={handleSubmit} className="space-y-3">
             <input
               type="text"

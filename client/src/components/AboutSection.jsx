@@ -5,38 +5,37 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative py-16 sm:py-20 px-4 sm:px-6 md:px-12 scroll-mt-20 bg-cover bg-center"
+      className="relative py-16 sm:py-20 px-4 sm:px-6 md:px-12 scroll-mt-20 bg-white"
     >
-      {/* Overlay with gradient for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/40"></div>
-
-      <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-center text-white">
+      {/* Removed the dark gradient overlay for a clean white background */}
+      
+      <div className="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-center text-gray-800">
         {/* Left Side - Text */}
         <div className="space-y-5">
-          <h3 className="text-green-400 text-xs sm:text-sm font-semibold uppercase tracking-widest">
+          <h3 className="text-teal-600 text-xs sm:text-sm font-semibold uppercase tracking-widest">
             About the Project
           </h3>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug md:leading-tight">
-            Welcome to <span className="text-green-400">Nirala Gateway</span>
+            Welcome to <span className="text-teal-600">Nirala Gateway</span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg font-medium text-gray-200">
+          <p className="text-sm sm:text-base md:text-lg font-medium text-gray-600">
             Prime Location: C-07, Sector 12, Greater Noida West
           </p>
 
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
+          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
             <strong>Nirala Gateway</strong> is a next-generation commercial hub
-            that blends <span className="text-green-400">retail spaces</span>,{" "}
-            <span className="text-green-400">fine dining</span>, modern{" "}
-            <span className="text-green-400">offices</span>, and{" "}
-            <span className="text-green-400">studio apartments</span> under one
+            that blends <span className="text-teal-600">retail spaces</span>,{" "}
+            <span className="text-teal-600">fine dining</span>, modern{" "}
+            <span className="text-teal-600">offices</span>, and{" "}
+            <span className="text-teal-600">studio apartments</span> under one
             vibrant ecosystem. Designed to be more than just a marketplace, it
-            redefines convenience and lifestyle with a perfect mix of work, 
+            redefines convenience and lifestyle with a perfect mix of work,
             leisure, and living.
           </p>
 
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
-            With its strategic three-side open plot and direct connectivity to 
-            major roads, the project is set to become a landmark destination, 
+          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
+            With its strategic three-side open plot and direct connectivity to
+            major roads, the project is set to become a landmark destination,
             offering unmatched visibility and accessibility.
           </p>
         </div>

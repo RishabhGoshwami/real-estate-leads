@@ -1,5 +1,6 @@
 import React from "react";
 import { FaStore, FaUtensils, FaBuilding, FaBed } from "react-icons/fa";
+import floorBg from "../assets/background_02.jpg"; // ✅ yaha aapka background image import
 
 const projectComponents = [
   {
@@ -52,10 +53,15 @@ const FloorPlanSection = () => {
   return (
     <section
       id="floor-plan"
-      className="relative py-20 px-6 md:px-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 scroll-mt-20"
+      className="relative py-20 px-6 md:px-12 scroll-mt-20"
+      style={{
+        backgroundImage: `url(${floorBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="absolute inset-0 bg-black/40"></div>
 
       <div className="relative max-w-7xl mx-auto">
         {/* Heading */}
