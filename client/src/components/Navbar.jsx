@@ -6,10 +6,9 @@ import logo from "../assets/logo.png";
 
 const navLinks = [
   { name: "Home", id: "home", href: "/" },
-  { name: "Who We Are", id: "about", href: "/#about" },
+  { name: "About", id: "about", href: "/#about" },
   { name: "Amenities", id: "amenities", href: "/#amenities" },
-  { name: "Pricing Plans", id: "Pricing-plan", href: "/#Pricing-Plan" },
-  { name: "Layout & Floors", id: "floor-plan", href: "/#floor-plan" },
+
   { name: "Brochure Download", id: "brochure", href: "/#brochure" },
 ];
 
